@@ -1,4 +1,5 @@
 @import "card";
+@import "navbar";
 
 
 .container {
@@ -129,4 +130,11 @@
   .logo img {
     filter: invert(1);
   }
+}
+
+.ant-card-cover img {
+  border-radius: 2px 2px 0 0;
+  width: 90%;
+  margin-left: 1rem;
+  margin-top: 1rem;
 }

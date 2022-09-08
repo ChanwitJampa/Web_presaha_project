@@ -1,0 +1,29 @@
+.navbar {
+    background-color: #fafafa;
+    color: #ffff;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+    .item {
+        // background-color: #b60303;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .cartnumber {
+        font-size: 0.8rem;
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+    }
+
+}
