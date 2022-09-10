@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.scss'
 import Logo from '../assets/LOGO-wide.png'
 import Image from 'next/image'
 import { Input } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined,UserOutlined } from '@ant-design/icons';
 
 const { Search } = Input;
 
@@ -25,8 +25,9 @@ export default function Navbar() {
                     }}
                 />
                 {/* <Link href="/" ><a style={{marginLeft: "1rem"}}>Home</a></Link> */}
-                <Link href="/" ><ShoppingCartOutlined style={{ color: "black", marginLeft: "2rem", marginRight: "0.5rem" }} /></Link>
+                <Link href="/cart" ><ShoppingCartOutlined style={{ color: "black", marginLeft: "2rem", marginRight: "0.5rem" }} /></Link>
                 <h3 className={styles.cartnumber}>0</h3>
+                <Link href="/" ><UserOutlined style={{ color: "black", marginLeft: "2rem", marginRight: "0.5rem" }} /></Link>
             </div>
 
         </div>

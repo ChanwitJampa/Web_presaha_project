@@ -6,10 +6,9 @@ import shirt2 from '../assets/shirt2.jpg'
 import 'antd/dist/antd.css';
 import { EditOutlined, EllipsisOutlined, SettingOutlined, ShoppingCartOutlined, HeartOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
-import Navbar from '../components/Navbar';
+import heroImage from '../assets/hero_image.webp'
 
 const { Meta } = Card;
-
 
 export default function Home() {
   return (
@@ -20,16 +19,59 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          KU E-SHOP
-        </h1>
+        <div className={styles.firstColumn}>
 
-        <p className={styles.description}>
-          WELCOME to our STORE
-        </p>
+          <div className={styles.column}>
+            <h1 className={styles.title}>
+              Fast Shipping on Orders $99+
+            </h1>
+
+            <h1 className={styles.secondTitle}>
+              Within the United States Only
+            </h1>
+          </div>
+
+          <div className={styles.blackLine} />
+
+          <div className={styles.column}>
+
+            <h1 className={styles.title}>
+              Quick Pickup
+            </h1>
+            <h1 className={styles.secondTitle}>
+              Buy Online, Pickup In store
+            </h1>
+          </div>
+          <div className={styles.blackLine} />
+
+          <div className={styles.column}>
+
+
+            <h1 className={styles.title}>
+              Worldwide Shipping
+            </h1>
+            <h1 className={styles.secondTitle}>
+              Easy Ship with Glopal
+            </h1>
+          </div>
+        </div>
+
+
+        <div className={styles.hero_section}>
+
+          <div className={styles.hero_image}>
+            <Image src={heroImage} alt="shirt" layout='responsive' />
+
+          </div>
+          <p className={styles.description}>
+            WELCOME TO OUR STORE
+          </p>
+
+
+        </div>
+
 
         <div className={styles.grid}>
           {/* <a href="https://nextjs.org/docs" className={styles.card}>
@@ -49,7 +91,7 @@ export default function Home() {
                 alt="example"
                 src="https://seekthailand.com/uploads/products/b54e058785bd1b0893fd2f1138a312bb.jpg"
                 className='test'
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -76,7 +118,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/57b191e9d5f8900b48cbb8c35a747dc9.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -103,7 +145,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/cf2f387137a7b5dbcaf85bc4f80c66d7.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -130,7 +172,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/c2d928be82e2c28c936b6674168cf051.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -156,7 +198,7 @@ export default function Home() {
                 alt="example"
                 src="https://seekthailand.com/uploads/products/b54e058785bd1b0893fd2f1138a312bb.jpg"
                 className='test'
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -183,7 +225,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/57b191e9d5f8900b48cbb8c35a747dc9.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -210,7 +252,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/cf2f387137a7b5dbcaf85bc4f80c66d7.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -237,7 +279,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/c2d928be82e2c28c936b6674168cf051.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -263,7 +305,7 @@ export default function Home() {
                 alt="example"
                 src="https://seekthailand.com/uploads/products/b54e058785bd1b0893fd2f1138a312bb.jpg"
                 className='test'
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -290,7 +332,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/57b191e9d5f8900b48cbb8c35a747dc9.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -317,7 +359,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/cf2f387137a7b5dbcaf85bc4f80c66d7.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -344,7 +386,7 @@ export default function Home() {
               <img
                 alt="example"
                 src="https://seekthailand.com/uploads/products/c2d928be82e2c28c936b6674168cf051.jpg"
-                style={{borderRadius:"2px 2px 0 0",width:"90%",marginLeft:"1rem",marginTop:"1rem"}}
+                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
             actions={[
@@ -370,10 +412,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          SHOPPING PROJECT BY Jittipon Kumurai and Chanwit Jampa
         </a>
       </footer>
     </div>
