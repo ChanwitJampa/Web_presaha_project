@@ -7,6 +7,7 @@ specifiers:
   next: 12.2.5
   react: 18.2.0
   react-dom: 18.2.0
+  react-hot-toast: ^2.3.0
   sass: ^1.54.8
 
 dependencies:
@@ -14,6 +15,7 @@ dependencies:
   next: 12.2.5_vuxjv6o7qhupugnkyf7vyqsruq
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hot-toast: 2.3.0_biqbaboplfbrettd7655fr4n2y
   sass: 1.54.8
 
 devDependencies:
@@ -1191,6 +1193,12 @@ packages:
       slash: 3.0.0
     dev: true
 
+  /goober/2.1.11:
+    resolution: {integrity: sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A==}
+    peerDependencies:
+      csstype: ^3.0.10
+    dev: false
+
   /grapheme-splitter/1.0.4:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
     dev: true
@@ -2256,6 +2264,20 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hot-toast/2.3.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-/RxV+bfjld7tSJR1SCLzMAXgFuNW7fCpK6+vbYqfmbGSWcqTMz2rizrvfWKvtcPH5HK0NqxmBaC5SrAy1F42zA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      goober: 2.1.11
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    transitivePeerDependencies:
+      - csstype
     dev: false
 
   /react-is/16.13.1:
