@@ -1,0 +1,82 @@
+.cartPage {
+    background-color: #f5f5f5;
+    width: 120rem;
+    height: 70rem;
+    // border: 1px solid black;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.innerCart {
+    border-radius: 1rem;
+    box-shadow: 10px 10px 30px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.innerCartLeft {
+    background-color: white;
+    width: 50rem;
+    height: 50rem;
+    border-radius: 1rem 0rem 0rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.innerCartRight {
+    background-color: #f6f6f6;
+    width: 30rem;
+    height: 50rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.titleBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    
+}
+
+.titleCart {
+    color: black;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-right: 20rem;
+}
+
+.itemNum {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: #686868;
+}
+
+.greyLine {
+    background-color: #e9e9e9;
+    width: 80%;
+    height: 0.15rem;
+}
+
+.summaryTitle {
+    color: black;
+    font-size: 2rem;
+
+}
+
+

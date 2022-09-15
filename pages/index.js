@@ -9,25 +9,28 @@ import { Avatar, Card } from 'antd';
 import heroImage from '../assets/hero_image.webp'
 import toast from 'react-hot-toast';
 import ScrollButton from '../components/ScrollButton';
+import { BackTop } from 'antd';
+import { ArrowUpOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
 export default function Home() {
 
+
   const toastSuccess = () => {
     toast.success('ADD TO CART SUCCESS! ',
-			{
-				// icon: '😝',
-				style: {
-					borderRadius: '10px',
-					padding: "1rem",
+      {
+        // icon: '😝',
+        style: {
+          borderRadius: '10px',
+          padding: "1rem",
           fontSize: "1.5rem"
-				},
-			});
+        },
+      });
     console.log("TOASTTs");
   }
 
-  
+
 
 
   return (
@@ -120,8 +123,8 @@ export default function Home() {
                 }
               </>,
               // <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -151,8 +154,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -182,8 +185,8 @@ export default function Home() {
                   false ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -213,8 +216,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -243,8 +246,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -274,8 +277,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -305,8 +308,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -336,8 +339,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -366,8 +369,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -397,8 +400,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -428,8 +431,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -459,8 +462,8 @@ export default function Home() {
                   true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                 }
               </>,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px'}} onClick={toastSuccess}/>,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px'}} />,
+              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
             ]}
           >
             <Meta
@@ -484,8 +487,14 @@ export default function Home() {
           SHOPPING PROJECT BY Jittipon Kumurai and Chanwit Jampa
         </a>
       </footer>
-      <ScrollButton />
-
+      {/* <ScrollButton /> */}
+      <BackTop >
+        <ArrowUpOutlined
+          style={{
+            display: 'flex',
+            color: "white", fontSize: "1.5rem", position: "fixed", bottom: "40px", zIndex: "1", left: "95%", backgroundColor: "black", borderRadius: "10%", width: "40px", height: "40px", justifyContent: "center", alignItems: "center"
+          }} />
+      </BackTop>
     </div>
   )
 }
