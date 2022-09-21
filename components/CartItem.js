@@ -1,5 +1,6 @@
 import styles from '../styles/Home.module.scss'
 import Image from 'next/image'
+import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 
 export default function CartItem({ title, description, image, link }) {
@@ -12,23 +13,28 @@ export default function CartItem({ title, description, image, link }) {
             </div>
 
             <div className={styles.secondCartItem}>
-                <h1>Shirt</h1>
+                <h1 className={styles.itemType}>Shirt</h1>
                 <h1>Cotton T-shirt</h1>
 
             </div>
 
             <div className={styles.thirdCartItem}>
-
+                <div className={styles.quantitySection}>
+                    <MinusOutlined className={styles.delBtnCartItem} />
+                    <h1 className={styles.quantityCartItem}>1</h1>
+                    <PlusOutlined className={styles.addBtnCartItem} />
+                </div>
 
             </div>
 
             <div className={styles.fourthCartItem}>
-
+                <h1 className={styles.itemPrice}>$ 20.00</h1>
 
             </div>
 
             <div className={styles.fiveCartItem}>
-
+                {/* <h1 className={styles.delBtn}>X</h1> */}
+                <CloseOutlined className={styles.delBtn} />
 
             </div>
 

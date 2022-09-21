@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 @import "card";
 @import "navbar";
 @import "cart";
@@ -5,9 +7,11 @@
 
 .container {
   // padding: 0 2rem;
+
 }
 
 .main {
+  font-family: 'Roboto', sans-serif;
   min-height: 100vh;
   padding: 4rem 0;
   flex: 1;

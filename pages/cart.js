@@ -1,5 +1,7 @@
 import styles from '../styles/Home.module.scss'
 import CartItem from '../components/CartItem'
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { TbArrowLeftBar } from 'react-icons/tb';
 
 export default function Cart() {
     return (
@@ -20,9 +22,25 @@ export default function Cart() {
                             </h1>
                         </div>
 
-                        <div className={styles.greyLine}/>
+                        <div className={styles.greyLine} />
 
                         <CartItem />
+                        <div className={styles.greyLine} />
+
+                        <CartItem />
+                        <div className={styles.greyLine} />
+
+                        <CartItem />
+
+                        <div className={styles.backBtnCart}>
+
+                            <TbArrowLeftBar style={{fontSize:"2rem"}}/>
+
+                            <h1 className={styles.backBtnCartText}>Back to shop</h1>
+
+
+                        </div>
+
 
                     </div>
                     <div className={styles.innerCartRight}>
@@ -31,7 +49,7 @@ export default function Cart() {
                             Summary
                         </h1>
 
-                        <div className={styles.greyLine}/>
+                        <div className={styles.greyLine} />
 
 
                     </div>
