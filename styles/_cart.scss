@@ -1,9 +1,8 @@
 .cartPage {
     background-color: #f5f5f5;
     width: 120rem;
-    height: 70rem;
+    min-height: 70rem;
     // border: 1px solid black;
-    
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -12,22 +11,23 @@
 
 .innerCart {
     border-radius: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     box-shadow: 10px 10px 30px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;
-    align-items: center;
+    // align-items: center;
     justify-content: center;
-
 }
 
 .innerCartLeft {
     background-color: white;
     width: 50rem;
-    height: 50rem;
+    min-height: 50rem;
     border-radius: 1rem 0rem 0rem 1rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
     flex-direction: column;
 }
 
@@ -35,12 +35,12 @@
 .innerCartRight {
     background-color: #f6f6f6;
     width: 30rem;
-    height: 50rem;
+    min-height: 50rem;
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
+    top:0
 }
 
 .titleBox {
@@ -48,7 +48,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    
+
 }
 
 .titleCart {
@@ -73,10 +73,17 @@
     height: 0.15rem;
 }
 
+.cartItemSection {
+    width: 100%;
+    min-height: 37rem;
+    margin-left: 10rem;
+}
+
 .summaryTitle {
     color: black;
     font-size: 2rem;
-
+    font-weight: bold;
+    margin-top: 3rem;
 }
 
 .backBtnCart {
@@ -88,17 +95,88 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-}
-
-//backBtnCart animation on hover
-.backBtnCart:hover {
-    animation: backBtnCart 0.5s ease-in-out;
+    padding-bottom: 2rem;
 }
 
 .backBtnCartText {
     font-size: 1rem;
     margin-left: 1rem;
-    margin-top: 0.3rem;
+    margin-top: 0.2rem;
     color: #b1b1b1;
 
+}
+
+.totalCartSection {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.totalPriceTextCart {
+
+    font-size: 1rem;
+    color: #686868;
+}
+
+.totalTextCart {
+    font-size: 1rem;
+    color: #686868;
+
+}
+
+.labelCartSection {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.shippingSection {
+    width: 80%;
+    display: block;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.percentIconCart {
+    margin-right: 0.5rem;
+}
+
+.totalSectionCart {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.sumTextCart {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.sumPriceTextCart {
+    font-size: 1rem;
+    font-weight: bold;
+    
+
+}
+
+
+.checkoutBtn {
+    cursor: pointer;
+    width: 80%;
+    height: 3.5rem;
+    color: white;
+    background-color: #000000;
+    // border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
 }
