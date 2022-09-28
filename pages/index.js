@@ -15,15 +15,15 @@ const { Meta } = Card;
 
 export default function Home() {
 
-
   const toastSuccess = () => {
-    toast.success('ADD TO CART SUCCESS! ',
+    toast.success('ADD TO CART SUCCESS ',
       {
         // icon: '😝',
         style: {
           borderRadius: '10px',
           padding: "1rem",
-          fontSize: "1.5rem"
+          fontWeight: "bold",
+          // fontSize: "1.5rem"
         },
       });
     console.log("TOASTTs");

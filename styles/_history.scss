@@ -1,0 +1,30 @@
+
+.historyComponent {
+    cursor: pointer;
+    width: 100%;
+    height: 5rem;
+    // background-color: grey;
+    border-radius: 0rem;
+    border: 1px solid black;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.historyNumber {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    // margin-top: 1rem;
+
+}
+
+.historyPrice {
+    color: black;
+    font-size: 1.5rem;
+    // font-weight: bold;
+    margin-left: 5rem;
+
+}
