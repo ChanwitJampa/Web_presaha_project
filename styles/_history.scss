@@ -28,3 +28,35 @@
     margin-left: 5rem;
 
 }
+
+.historyItem {
+    width: 100%;
+    // background-color: red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 2rem;
+    // margin-right: 5rem;
+}
+
+.numHistoryItem {
+    // background-color: rebeccapurple;
+    width: 5rem;
+    height: 5rem;
+}
+
+
+.countItem {
+    color: black;
+    font-size: 1rem;
+    // margin-left: 5rem;
+}
+
+.totalHistory {
+    text-align: end;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 2rem;
+    margin-top: 4rem;
+}

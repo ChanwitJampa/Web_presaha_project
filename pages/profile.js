@@ -56,7 +56,8 @@ export default function Profile() {
                     </div>
                 </div>
 
-                    <BsPersonCircle style={{fontSize:"3rem",marginTop:"2rem"}}/>
+                <BsPersonCircle style={{ fontSize: "2.5rem", marginTop: "2rem", color:"rgb(203 59 59)" }} />
+                <h1>info</h1>
 
                 <div className={styles.infoSection}>
 
@@ -72,16 +73,17 @@ export default function Profile() {
                     <h1 className={styles.label}>Address</h1>
                     <h1 className={styles.text}>ห้อง 999 หอ Kamp 99/10 หมู่ 12 ตำบลกำแพงแสน อำเภอกำแพงแสน จังหวัดนครปฐม 73140
                         อำเภอกำแพงแสน, จังหวัดนครปฐม, 73140</h1>
-                        
+
                 </div>
 
                 <div className={styles.historySection}>
 
-                    <AiOutlineFieldTime style={{fontSize:"4rem",marginTop:"2rem"}}/>
+                    <AiOutlineFieldTime style={{ fontSize: "3rem", marginTop: "2rem" , color:"rgb(203 59 59)"}} />
+                    <h1>history</h1>
 
-                    <History num={1} price={5000}/>
-                    <History num={2} price={600}/>
-                    <History num={3} price={2500}/>
+                    <History num={1} price={5000} />
+                    <History num={2} price={600} />
+                    <History num={3} price={2500} />
                 </div>
 
 
