@@ -6,6 +6,7 @@
 @import "cartitem";
 @import "profile";
 @import "history";
+@import "product";
 
 .container {
   // padding: 0 2rem;
@@ -37,6 +38,7 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .footer a {

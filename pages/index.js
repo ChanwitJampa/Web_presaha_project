@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import ScrollButton from '../components/ScrollButton';
 import { BackTop } from 'antd';
 import { ArrowUpOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 
 const { Meta } = Card;
 
@@ -93,44 +94,46 @@ export default function Home() {
 
         </div>
 
-
         <div className={styles.grid}>
           {/* <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation </h2>
             <p>Find in-depth information about Next.js features and API.</p>
           </a> */}
-
-          <Card
-            hoverable
-            style={{
-              width: 300,
-              marginRight: "2rem",
-              marginTop: "1rem"
-            }}
-            cover={
-              <img
-                alt="example"
-                src="https://seekthailand.com/uploads/products/b54e058785bd1b0893fd2f1138a312bb.jpg"
-                className='test'
-                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
+          <Link href={`/product/$test`}>
+            <Card
+              hoverable
+              style={{
+                width: 300,
+                marginRight: "2rem",
+                marginTop: "1rem"
+              }}
+              cover={
+                <img
+                  alt="example"
+                  src="https://seekthailand.com/uploads/products/b54e058785bd1b0893fd2f1138a312bb.jpg"
+                  className='test'
+                  style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
+                />
+              }
+              actions={[
+                <>
+                  {
+                    true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
+                  }
+                </>,
+                // <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />,
+                <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+                <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
+              ]}
+            >
+              <Meta
+                title="Men Long sleeves white"
+                description="699 THB"
               />
-            }
-            actions={[
-              <>
-                {
-                  true ? <HeartOutlined key="edit" style={{ fontSize: '16px', color: '#E80F88', }} /> : <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
-                }
-              </>,
-              // <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />,
-              <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
-              <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
-            ]}
-          >
-            <Meta
-              title="Men Long sleeves white"
-              description="699 THB"
-            />
-          </Card>
+            </Card>
+          </Link>
+
+
 
           <Card
             hoverable
@@ -189,7 +192,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men white sneaker"
+              title="Men Long sleeves yellow"
               description="1299 THB"
             />
           </Card>
@@ -220,7 +223,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men white sneaker"
+              title="Men Long sleeves black"
               description="1299 THB"
             />
           </Card>
@@ -234,7 +237,7 @@ export default function Home() {
             cover={
               <img
                 alt="example"
-                src="https://seekthailand.com/uploads/products/b54e058785bd1b0893fd2f1138a312bb.jpg"
+                src="https://seekthailand.com/uploads/products/ee61f85ffad46a97936e8f9101f2a54c.jpg"
                 className='test'
                 style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
@@ -250,7 +253,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men Long sleeves white"
+              title="Men black sneaker"
               description="699 THB"
             />
           </Card>
@@ -266,7 +269,7 @@ export default function Home() {
             cover={
               <img
                 alt="example"
-                src="https://seekthailand.com/uploads/products/57b191e9d5f8900b48cbb8c35a747dc9.jpg"
+                src="https://seekthailand.com/uploads/products/ead69040aa8297a8535b5ce07cea5271.jpg"
                 style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
@@ -281,7 +284,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men white sneaker"
+              title="Men white red sneaker"
               description="1299 THB"
             />
           </Card>
@@ -297,7 +300,7 @@ export default function Home() {
             cover={
               <img
                 alt="example"
-                src="https://seekthailand.com/uploads/products/cf2f387137a7b5dbcaf85bc4f80c66d7.jpg"
+                src="https://seekthailand.com/uploads/products/183da5871f2b39c02dd19cc346e597fc.jpg"
                 style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
@@ -312,7 +315,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men white sneaker"
+              title="Men Long sleeves red"
               description="1299 THB"
             />
           </Card>
@@ -328,7 +331,7 @@ export default function Home() {
             cover={
               <img
                 alt="example"
-                src="https://seekthailand.com/uploads/products/c2d928be82e2c28c936b6674168cf051.jpg"
+                src="https://seekthailand.com/uploads/products/b6bafb992ecaaaf8a5c44dcb95d1fdbe.jpg"
                 style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
@@ -343,7 +346,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men white sneaker"
+              title="Men basketball purple"
               description="1299 THB"
             />
           </Card>
@@ -357,7 +360,7 @@ export default function Home() {
             cover={
               <img
                 alt="example"
-                src="https://seekthailand.com/uploads/products/b54e058785bd1b0893fd2f1138a312bb.jpg"
+                src="https://seekthailand.com/uploads/products/eaae5f0c98b2e66acc4d154ab6c85435.jpg"
                 className='test'
                 style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
@@ -373,7 +376,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men Long sleeves white"
+              title="Men basketball black"
               description="699 THB"
             />
           </Card>
@@ -389,7 +392,7 @@ export default function Home() {
             cover={
               <img
                 alt="example"
-                src="https://seekthailand.com/uploads/products/57b191e9d5f8900b48cbb8c35a747dc9.jpg"
+                src="https://seekthailand.com/uploads/products/703f97dcc1610b9e4a99c8db87fae0a7.jpg"
                 style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
@@ -404,7 +407,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men white sneaker"
+              title="Men basketball red"
               description="1299 THB"
             />
           </Card>
@@ -420,7 +423,7 @@ export default function Home() {
             cover={
               <img
                 alt="example"
-                src="https://seekthailand.com/uploads/products/cf2f387137a7b5dbcaf85bc4f80c66d7.jpg"
+                src="https://seekthailand.com/uploads/products/4b8c9842808a0b9749ac262ba3b017dd.jpg"
                 style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
@@ -435,7 +438,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men white sneaker"
+              title="Men basketball blue"
               description="1299 THB"
             />
           </Card>
@@ -451,7 +454,7 @@ export default function Home() {
             cover={
               <img
                 alt="example"
-                src="https://seekthailand.com/uploads/products/c2d928be82e2c28c936b6674168cf051.jpg"
+                src="https://seekthailand.com/uploads/products/62a3af7f728f751a85362e826bcdddde.jpg"
                 style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
               />
             }
@@ -466,7 +469,7 @@ export default function Home() {
             ]}
           >
             <Meta
-              title="Men white sneaker"
+              title="Men white red blue basketball shirt"
               description="1299 THB"
             />
           </Card>

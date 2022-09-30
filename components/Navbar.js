@@ -4,10 +4,22 @@ import Logo from '../assets/LOGO-wide.png'
 import Image from 'next/image'
 import { Input } from 'antd';
 import { ShoppingCartOutlined,UserOutlined } from '@ant-design/icons';
+import Router from 'next/router'
 
 const { Search } = Input;
 
-const onSearch = (value) => console.log(value);
+
+const gotoSearch = (value) => {
+    console.log(value);
+    // window.location.href = `/search?value=${value}`;
+    Router.push({
+        pathname: '/search',
+        query: { value: value },
+    })
+}
+
+
+
 
 
 export default function Navbar() {
@@ -19,7 +31,7 @@ export default function Navbar() {
             <div className={styles.item}>
                 <Search
                     placeholder="Search our store"
-                    onSearch={onSearch}
+                    onSearch={gotoSearch}
                     style={{
                         width: 200,
                     }}
