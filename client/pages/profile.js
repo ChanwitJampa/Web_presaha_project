@@ -3,10 +3,11 @@ import CartItem from '../components/CartItem'
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { BsPersonCircle } from 'react-icons/bs';
 import { AiOutlineFieldTime } from 'react-icons/ai';
-import { Select } from 'antd';
-import { InfoCircleOutlined, PercentageOutlined } from '@ant-design/icons';
+import { Button, Select } from 'antd';
+import { InfoCircleOutlined, HeartOutlined } from '@ant-design/icons';
 import { Input, Tooltip } from 'antd';
 import History from '../components/History';
+import Link from 'next/link';
 
 const { Option, OptGroup } = Select;
 
@@ -56,7 +57,13 @@ export default function Profile() {
                     </div>
                 </div>
 
-                <BsPersonCircle style={{ fontSize: "2.5rem", marginTop: "2rem", color:"rgb(203 59 59)" }} />
+                <div>
+                    <Link href='/favorite'>
+                        <Button icon={<HeartOutlined style={{ color: "red" }} />} style={{ marginTop: "2rem" }}>Favorite Item</Button>
+                    </Link>
+                </div>
+
+                <BsPersonCircle style={{ fontSize: "2.5rem", marginTop: "2rem", color: "rgb(203 59 59)" }} />
                 <h1>info</h1>
 
                 <div className={styles.infoSection}>
@@ -78,7 +85,7 @@ export default function Profile() {
 
                 <div className={styles.historySection}>
 
-                    <AiOutlineFieldTime style={{ fontSize: "3rem", marginTop: "2rem" , color:"rgb(203 59 59)"}} />
+                    <AiOutlineFieldTime style={{ fontSize: "3rem", marginTop: "2rem", color: "rgb(203 59 59)" }} />
                     <h1>history</h1>
 
                     <History num={1} price={5000} />

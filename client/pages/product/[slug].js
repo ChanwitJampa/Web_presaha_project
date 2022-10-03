@@ -9,12 +9,41 @@ import { Input, Tooltip } from 'antd';
 import { useRouter } from 'next/router'
 import { Image } from 'antd';
 import { Button } from 'antd';
+import toast from 'react-hot-toast';
 
 export default function ProductScreen(props) {
     const { query } = useRouter()
     const { slug } = query
 
     console.log(slug);
+
+    const toastCartSuccess = () => {
+        toast.success('ADD TO CART SUCCESS ',
+            {
+                icon: '🛒',
+                style: {
+                    borderRadius: '10px',
+                    padding: "1rem",
+                    fontWeight: "bold",
+                    // fontSize: "1.5rem"
+                },
+            });
+        console.log("TOASTTs");
+    }
+
+    const toastFavSuccess = () => {
+        toast.success('ADD TO CART SUCCESS ',
+            {
+                icon: '❤️',
+                style: {
+                    borderRadius: '10px',
+                    padding: "1rem",
+                    fontWeight: "bold",
+                    // fontSize: "1.5rem"
+                },
+            });
+        console.log("TOASTTs");
+    }
 
     return (
         <div className={styles.main}>
@@ -35,11 +64,13 @@ export default function ProductScreen(props) {
 
                 <Tooltip title="Favorite">
                     <Button danger shape="circle" icon={<HeartOutlined />}
-                        style={{ marginTop: "3rem",backgroundColor:'pink' }}
-                        size={'large'} />
+                        style={{ marginTop: "3rem", backgroundColor: 'pink' }}
+                        size={'large'} 
+                        onClick={toastFavSuccess}
+                        />
                 </Tooltip>
 
-                <Button type='primary' icon={<ShoppingCartOutlined />} size={'large'} style={{ marginLeft: "2rem" }}>
+                <Button type='primary' onClick={toastCartSuccess} icon={<ShoppingCartOutlined />} size={'large'} style={{ marginLeft: "2rem" }}>
                     add to cart
                 </Button>
 

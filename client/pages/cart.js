@@ -5,6 +5,7 @@ import { TbArrowLeftBar } from 'react-icons/tb';
 import { Select } from 'antd';
 import { InfoCircleOutlined, PercentageOutlined } from '@ant-design/icons';
 import { Input, Tooltip } from 'antd';
+import Link from 'next/link';
 
 const { Option, OptGroup } = Select;
 
@@ -47,15 +48,17 @@ export default function Cart() {
 
                         </div>
 
+                        <Link href="/" >
 
-                        <div className={styles.backBtnCart}>
+                            <div className={styles.backBtnCart}>
 
-                            <TbArrowLeftBar style={{ fontSize: "2rem" }} />
+                                <TbArrowLeftBar style={{ fontSize: "2rem",marginBottom:"0.4rem" }} />
 
-                            <h1 className={styles.backBtnCartText}>Back to shop</h1>
+                                <h1 className={styles.backBtnCartText}>Back to shop</h1>
 
 
-                        </div>
+                            </div>
+                        </Link>
 
 
                     </div>
