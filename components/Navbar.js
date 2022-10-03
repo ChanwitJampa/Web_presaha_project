@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { Input } from 'antd';
 import { ShoppingCartOutlined,UserOutlined } from '@ant-design/icons';
 import Router from 'next/router'
+import { Button } from "antd";
 
 const { Search } = Input;
 
+const user = true ;
 
 const gotoSearch = (value) => {
     console.log(value);
@@ -36,10 +38,11 @@ export default function Navbar() {
                         width: 200,
                     }}
                 />
-                {/* <Link href="/" ><a style={{marginLeft: "1rem"}}>Home</a></Link> */}
                 <Link href="/cart" ><ShoppingCartOutlined style={{ color: "black", marginLeft: "2rem", marginRight: "0.5rem" }} /></Link>
                 <h3 className={styles.cartnumber}>0</h3>
                 <Link href="/profile" ><UserOutlined style={{ color: "black", marginLeft: "2rem", marginRight: "0.5rem" }} /></Link>
+                
+                { user ? <Button>HAVE</Button> : <Button>Dont</Button> }
             </div>
 
         </div>
