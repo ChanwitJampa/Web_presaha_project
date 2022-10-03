@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { getUsers,setUser,putUser,deleteUser,getUser,deleteUserByGmail,getFavoriteItem,setFavoriteItem } = require('../controllers/userController')
 
-router.route('/favoriteItem').get(getFavoriteItem).post(setFavoriteItem)
+
 router.route('/').get(getUsers).post(setUser).delete(deleteUserByGmail)
 router.route('/:id').put(putUser).delete(deleteUser).get(getUser)
 

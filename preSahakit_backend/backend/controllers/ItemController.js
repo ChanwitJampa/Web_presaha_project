@@ -53,7 +53,7 @@ const putItem = asyncHandler(async (req, res) => {
     const item = await Item.findById(req.params.id)
     if (!item) {
         res.status(400)
-        throw new Error('user id not found')
+        throw new Error('item not found')
     }
 
     const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -83,7 +83,7 @@ const getItem = asyncHandler(async (req, res) => {
     const item = await Item.findById(req.params.id)
     if (!item) {
         res.status(400)
-        throw new Error('user id not found')
+        throw new Error('item not found')
     }
     res.status(200).json(item)
 })
