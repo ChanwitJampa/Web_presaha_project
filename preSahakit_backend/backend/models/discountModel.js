@@ -8,17 +8,17 @@ const discountSchema = mongoose.Schema({
     discountType:{
         type: String,
         enum:['percent','realDiscount'],
-        select: false,
+       
         required:[true,'Please add a discountType']
     },
     discount:{
         type: Number,
-        select: false,
+        
         required:[true,'Please add a discount Value']
     },
     condition:{
         type: Number,
-        select: false,
+    
         required:[true,'Please add a condition']
     },
     
