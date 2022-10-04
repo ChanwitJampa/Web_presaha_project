@@ -7,13 +7,15 @@ const hospitalSchema = mongoose.Schema({
     },
     price:{
         type: Number,
-        select: false,
-        required:[true,'Please add a assword']
+        required:[true,'Please add a price']
     },
     description:{
         type: String,
-        select: false,
-        required:[true,'Please add a assword']
+        required:[true,'Please add a description']
+    },
+    imagePath:{
+        type: String,
+        required:[true,'Please add a image']
     },
     
 },)

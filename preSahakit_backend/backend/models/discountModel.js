@@ -21,6 +21,10 @@ const discountSchema = mongoose.Schema({
     
         required:[true,'Please add a condition']
     },
+    listUserUsed:[{
+        type: mongoose.Schema.Types.ObjectId,
+        default:[]
+    }],
     
 },)
 

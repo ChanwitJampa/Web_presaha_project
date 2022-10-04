@@ -36,6 +36,8 @@ const setItem = asyncHandler(async (req, res) => {
     const item = await Item.create({
         name: req.body.name,
         price: req.body.price,
+        description: req.body.description,
+        imagePath: req.body.imagePath,
     })
     if (oldItem)
         res.status(200).json(oldItem)
