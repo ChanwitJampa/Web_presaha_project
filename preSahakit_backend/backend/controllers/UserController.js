@@ -44,6 +44,7 @@ const setUser = asyncHandler(async (req, res) => {
         phoneNumber: req.body.phoneNumber,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        address : req.body.address,
         role: req.body.role,
         hospitalID: req.body.hospitalID,
         // role: req.body.role === undefined ? "hospital" : req.body.role
