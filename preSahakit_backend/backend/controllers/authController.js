@@ -26,7 +26,7 @@ const login = asyncHandler(async (req, res) => {
 
     if (user) {
             const oldUser = await User.findOne({ userName }).select('+role')
-            console.log(`old user is :${oldUser}`)
+            console.log(`old user`)
             const token = jwt.sign(
                 { user_id: user._id, userName ,role:oldUser.role},
                 process.env.TOKEN_KEY, {

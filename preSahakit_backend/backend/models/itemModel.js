@@ -10,6 +10,11 @@ const hospitalSchema = mongoose.Schema({
         select: false,
         required:[true,'Please add a assword']
     },
+    description:{
+        type: String,
+        select: false,
+        required:[true,'Please add a assword']
+    },
     
 },)
 

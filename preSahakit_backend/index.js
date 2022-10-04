@@ -31,6 +31,7 @@ app.use('/api/Users', require('./backend/routes/userRouters'))
 app.use('/api/Items', require('./backend/routes/itemRouter'))
 app.use('/api/FavoriteItem', require('./backend/routes/favoriteRouter'))
 app.use('/api/login', require('./backend/routes/authRouter'))
+app.use('/api/discount', require('./backend/routes/discountRouter'))
 
 app.post('/api/authen', (req, res) => {
     const authHeader = JSON.stringify(req.headers.authorization)
@@ -44,6 +45,7 @@ app.post('/api/authen', (req, res) => {
             req.user = decode
             res.status(200).json(decode)
         } catch (err) {
+            console.log(err)
             res.status(401)
             throw new Error('invalid token')
         }
