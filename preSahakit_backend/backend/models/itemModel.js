@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const hospitalSchema = mongoose.Schema({
     name:{
         type: String,
-        required:[true,'Please add a userName']
+        required:[true,'Please add a name']
     },
     price:{
         type: Number,
