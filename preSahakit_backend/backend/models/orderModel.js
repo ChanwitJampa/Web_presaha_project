@@ -2,13 +2,16 @@ const mongoose = require('mongoose')
 
 const orderSchema = mongoose.Schema({
     itemID:{
-        type: String,
-        required:[true,'Please add a userName']
+        type: mongoose.Schema.Types.ObjectId,
+        required:[true,'Please add a itemID']
     },
-    count:{
+    userID:{
+        type: mongoose.Schema.Types.ObjectId,
+        required:[true,'Please add a userID']
+    },
+    amount:{
         type: Number,
-        select: false,
-        required:[true,'Please add a assword']
+        required:[true,'Please add a amount']
     },
 },)
 

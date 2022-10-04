@@ -2,7 +2,7 @@
 const asyncHandler = require('express-async-handler')
 const Item = require('../models/itemModel')
 const { hidden } = require('colors');
-
+const mongoose = require("mongoose");
 //@desc Get items
 //@route GET /api/items
 //@access Private
@@ -33,15 +33,17 @@ const setItem = asyncHandler(async (req, res) => {
         throw new Error(' please add name of Item')
     }
 
-    const item = await Item.create({
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-        imagePath: req.body.imagePath,
-    })
+   
     if (oldItem)
         res.status(200).json(oldItem)
-    else
+    else{
+        const item = await Item.create({
+            name: req.body.name,
+            price: req.body.price,
+            description: req.body.description,
+            imagePath: req.body.imagePath,
+        })
+    }
         res.status(200).json(item)
 })
 
