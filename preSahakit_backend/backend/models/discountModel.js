@@ -7,7 +7,7 @@ const discountSchema = mongoose.Schema({
     },
     discountType:{
         type: String,
-        enum:['percent','realDiscount'],
+        enum:['percent','amount'],
        
         required:[true,'Please add a discountType']
     },
@@ -20,6 +20,10 @@ const discountSchema = mongoose.Schema({
         type: Number,
     
         required:[true,'Please add a condition']
+    },
+    description:{
+        type: String,
+        required:[true,'Please add a description']
     },
     listUserUsed:[{
         type: mongoose.Schema.Types.ObjectId,
