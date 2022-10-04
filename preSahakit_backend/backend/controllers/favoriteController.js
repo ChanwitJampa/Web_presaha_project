@@ -42,13 +42,63 @@ const setFavoriteItem = asyncHandler(async (req, res) => {
                 var myquery = { userName: req.params.userName };
                 var newvalues = { $set: { favoriteItem: user.favoriteItem } };
                 User.updateOne(myquery, newvalues, function (err, res) {
-                    console.log(err)
+                    if (err)
+                        console.log(err)
                 })
                 res.status(200).json(user.favoriteItem)
             }
-            else{
+            else {
                 res.status(400)
                 throw new Error('Item id is aleady in favorite')
+            }
+
+
+        }
+        else {
+            res.status(400)
+            throw new Error('Item id not found')
+        }
+
+    }
+
+})
+
+
+const removeFavoriteItem = asyncHandler(async (req, res) => {
+
+    const user = await User.findOne({ userName: req.params.userName })
+    const { itemID } = req.body
+    if (!user) {
+        res.status(400)
+        throw new Error(`${itemID} user id not found`)
+    }
+    else {
+        if (!ObjectId.isValid(itemID)) {
+            res.status(400) 
+            throw new Error(`${itemID} is not Object ID type`)
+        }
+        const item = await Item.findById(mongoose.Types.ObjectId(itemID))
+
+        if (item) {
+            var test = user.favoriteItem
+            if (test.includes(itemID)) {
+                // test.forEach(Myfunction);
+                // function Myfunction(e){
+                //     console.log(e+ " " +mongoose.Types.ObjectId(itemID)+ "  | "+e.equals(mongoose.Types.ObjectId(itemID)))
+                // }
+
+                test = test.filter(e => !e.equals(mongoose.Types.ObjectId(itemID)) );
+                var myquery = { userName: req.params.userName };
+                var newvalues = { $set: { favoriteItem: test } };
+                User.updateOne(myquery, newvalues, function (err, res) {
+                    if (err)
+                        console.log(err)
+                })
+                res.status(200).json("delete "+ itemID+" success")
+            }
+            else {
+                res.status(400)
+                throw new Error('item ID not found on users favorite')
             }
 
 
@@ -66,5 +116,6 @@ const setFavoriteItem = asyncHandler(async (req, res) => {
 
 module.exports = {
     getFavoriteItem,
-    setFavoriteItem
+    setFavoriteItem,
+    removeFavoriteItem
 }
