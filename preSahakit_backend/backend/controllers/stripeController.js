@@ -7,7 +7,7 @@ const userStripe = asyncHandler(async (req, res) => {
     stripe.charges.create({
         source: req.body.tokenId,
         amount: req.body.amount,
-        currency: "baht"
+        currency: "USD"
     }, (stipeErr, stripeResponse) => {
         if(stipeErr){
             res.status(400).json({messge:"error from stripe ",error:stipeErr})
