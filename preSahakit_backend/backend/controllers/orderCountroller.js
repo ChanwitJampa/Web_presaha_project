@@ -115,7 +115,7 @@ const getOrder = asyncHandler(async (req, res) => {
 
 const getAllOrderByUserName = asyncHandler(async (req, res) => {
 
-    const user = await User.findOne({userName:req.params.id})
+    const user = await User.find({userName:req.params.id})
     if(!user){
         res.status(400)
         throw new Error(`${req.params.id} userName is not found`)
