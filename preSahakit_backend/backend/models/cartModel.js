@@ -6,7 +6,7 @@ const CartSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: [true, 'Please add a name']
         },
-        items: [
+        Items: [
             {
                 itemID: {
                     type: mongoose.Schema.Types.ObjectId
