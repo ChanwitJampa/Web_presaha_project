@@ -38,6 +38,7 @@ app.use('/api/discount', require('./backend/routes/discountRouter'))
 
 app.post('/api/authen', (req, res) => {
     const authHeader = JSON.stringify(req.headers.authorization)
+    console.log(req.headers)
     if (!authHeader) {
         res.status(403)
         throw new Error("A token is required for authentication")
