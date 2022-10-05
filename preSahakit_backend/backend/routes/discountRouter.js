@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { getDiscountByUserID, setDiscount, useDiscount} = require("../controllers/discountController")
+const { getDiscountByUserName, getAllDiscount, setDiscount, deleteDiscount, useDiscount} = require("../controllers/discountController")
 
 router.route('/useDiscount').post(useDiscount)
-router.route('/').post(setDiscount)
-router.route('/:id').get(getDiscountByUserID)
+router.route('/').post(setDiscount).get(getAllDiscount)
+router.route('/:id').get(getDiscountByUserName).delete(deleteDiscount)
 
 module.exports = router

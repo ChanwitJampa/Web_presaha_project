@@ -88,7 +88,10 @@ const putUser = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error(`not allowe update userName :)`)
     }
-
+    if(req.body.favoriteItem){
+        res.status(400)
+        throw new Error(`not allowe update favoriteItem :)`)
+    }
     if (!user) {
         res.status(400)
         throw new Error(`${req.params.id} user id not found`)
