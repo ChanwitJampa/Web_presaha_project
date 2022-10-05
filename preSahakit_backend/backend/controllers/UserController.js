@@ -97,7 +97,7 @@ const deleteUserByGmail = asyncHandler(async (req, res) => {
     user.remove()
 
 
-    res.status(200).json({ userName: userName })
+    res.status(200).json(`deleter userID ${userName} success`)
 })
 
 
@@ -113,7 +113,7 @@ const deleteUser = asyncHandler(async (req, res) => {
         throw new Error('user id not found')
     }
     const deleteuser = await User.findByIdAndDelete(req.params.id)
-    res.status(200).json({ id: req.params.id })
+    res.status(200).json(`deleter userID ${req.params.id} success`)
 })
 
 
