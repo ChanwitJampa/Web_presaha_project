@@ -76,7 +76,7 @@ const deleteItem = asyncHandler(async (req, res) => {
         throw new Error('item id not found')
     }
     const deleteuser = await Item.findByIdAndDelete(req.params.id)
-    res.status(200).json({ id: req.params.id })
+    res.status(200).json(`delete item success ${req.params.id}`)
 })
 
 
