@@ -75,9 +75,23 @@ const setUser = asyncHandler(async (req, res) => {
 //@access Private
 const putUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
+
+    if(req.body._id){
+        res.status(400)
+        throw new Error(`not allowe update _id :)`)
+    }
+    if(req.body.password){
+        res.status(400)
+        throw new Error(`not allowe update password :)`)
+    }
+    if(req.body.userName){
+        res.status(400)
+        throw new Error(`not allowe update userName :)`)
+    }
+
     if (!user) {
         res.status(400)
-        throw new Error('user id not found')
+        throw new Error(`${req.params.id} user id not found`)
     }
 
     const updateduser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
