@@ -15,7 +15,60 @@ const getCarts = asyncHandler(async (req, res) => {
     res.status(200).json(carts)
 })
 
+const addItemToCart = asyncHandler(async (req, res) => {
+    const user = await User.findOne({ userName: req.params.id })
+    if(req.body.amount<=0){
+        res.status(400)
+        throw new Error(`amount should be more than 0`)
+    }
+    if (!user) {
+        res.status(400)
+        throw new Error(`userID ${req.params.id} is not found`)
+    }
 
+    const item = await Item.findById(req.body.itemID)
+
+    if (!item) {
+        res.status(400)
+        throw new Error(`item ${req.body.itemID} is not found`)
+    }
+
+    const cart = await Cart.findOne({ userID: user._id })
+
+    if (!cart) {
+        var newCart = await Cart.create({
+            userID: user._id,
+            Items: [{ itemID: item._id, name: item.name, price: item.price, description: item.description, imagePath: item.imagePath, amount: req.body.amount }]
+        })
+        res.status(200).json(newCart)
+    }
+    else {
+        let check = 0
+        var listItems = cart.Items
+        for (let i = 0; i < listItems.length; i++) {
+            if (listItems[i].itemID.equals(req.body.itemID)) {
+                listItems[i].amount += req.body.amount
+                const newCart = await Cart.findByIdAndUpdate(cart._id, { Items: listItems }, { new: true })
+                res.status(200).json(newCart)
+                check = 1
+                break;
+            }
+
+        }
+        if (check == 0) {
+            const foundItem = await Item.findById(req.body.itemID)
+            cart.Items.push({ itemID: foundItem._id, name: foundItem.name, price: foundItem.price, description: foundItem.description, imagePath: foundItem.imagePath, amount: req.body.amount })
+            const newCart = await Cart.findByIdAndUpdate(cart._id, { Items: cart.Items }, { new: true })
+            res.status(200).json(newCart)
+        }
+        else {
+            res.status(400)
+            throw new Error(`error check 1`)
+        }
+    }
+
+
+})
 
 const updateCart = asyncHandler(async (req, res) => {
 
@@ -43,8 +96,8 @@ const updateCart = asyncHandler(async (req, res) => {
             res.status(400)
             throw new Error(`${listItems[i].itemID}  amount should be more than 0`)
         }
-        newListItems.push({ itemID: itemFound._id, name: itemFound.name, price: itemFound.price, description: itemFound.description, imagePath: itemFound.imagePath, amount:listItems[i].amount })
-        
+        newListItems.push({ itemID: itemFound._id, name: itemFound.name, price: itemFound.price, description: itemFound.description, imagePath: itemFound.imagePath, amount: listItems[i].amount })
+
     }
 
     const cart = await Cart.findOne({ userID: userID })
@@ -134,5 +187,6 @@ module.exports = {
     getCartByUserName,
     getCarts,
     updateCart,
-    deleteCart
+    deleteCart,
+    addItemToCart
 }
