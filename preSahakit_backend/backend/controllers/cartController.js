@@ -17,10 +17,7 @@ const getCarts = asyncHandler(async (req, res) => {
 
 const addItemToCart = asyncHandler(async (req, res) => {
     const user = await User.findOne({ userName: req.params.id })
-    if(req.body.amount<=0){
-        res.status(400)
-        throw new Error(`amount should be more than 0`)
-    }
+    
     if (!user) {
         res.status(400)
         throw new Error(`userID ${req.params.id} is not found`)
@@ -35,6 +32,7 @@ const addItemToCart = asyncHandler(async (req, res) => {
 
     const cart = await Cart.findOne({ userID: user._id })
 
+    
     if (!cart) {
         var newCart = await Cart.create({
             userID: user._id,
