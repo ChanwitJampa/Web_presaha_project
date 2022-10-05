@@ -115,14 +115,14 @@ const getOrder = asyncHandler(async (req, res) => {
 
 const getAllOrderByUserName = asyncHandler(async (req, res) => {
 
-    const user = await User.find({userName:req.params.id})
+    const user = await User.findOne({userName:req.params.id})
     if(!user){
         res.status(400)
         throw new Error(`${req.params.id} userName is not found`)
     }
     const userID = user._id
     
-    const order = await Order.findOne({userID:userID})
+    const order = await Order.find({userID:userID})
 
     if (!order) {
         res.status(400)
