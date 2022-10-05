@@ -19,6 +19,7 @@ const { Meta } = Card;
 
 export default function Home() {
 
+  const [user, setUser] = useState(null);
   const [data, setData] = useState(null);
   const [userFav, setUserFav] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -92,17 +93,59 @@ export default function Home() {
     const response1 = await axios.get('http://localhost:5000/api/Items');
     const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/justID/Test');
 
+    setUser(JSON.parse(window.localStorage.getItem("user")));
+    console.log(user);
+
     setData(response1.data);
     setUserFav(response2.data);
+
+    // setTimeout(function() { checkToken(); }, 3000);
+    // checkToken();
+
     setLoading(false);
-    // console.log(data);
-    // console.log(userFav);
-    // console.log(userFav.Items);
 
   }
+
+  const checkToken = async () => {
+    const token = user.token;
+
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+
+    console.log('TOKEN = ' + token);
+
+    axios.post(`http://localhost:5000/api/authen`,
+      {
+        headers: { 'Authorization': `Bearer ${token}` }
+      }
+    ).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    }).catch((err) => {
+      console.log(err.response.data);
+    })
+
+
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (user != null) {
+      checkToken();
+
+    }
+  }, [user]);
+
+
   useEffect(() => {
 
     fetchData();
+
+    // checkToken();
+    // console.log('USER TOKEN' + user.token);
 
     // axios.get('http://localhost:5000/api/Items').then(res => {
     //   // console.log('item',res.data);

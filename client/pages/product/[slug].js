@@ -38,7 +38,14 @@ export default function ProductScreen(props) {
         console.log("TOASTTs");
     }
 
-    const toastFavSuccess = () => {
+    const toastFavSuccess = (props) => {
+        axios.post(`http://localhost:5000/api/FavoriteItem/Test`, {
+            itemID: props
+        }).then((res) => {
+            console.log(res);
+            console.log(res.data);
+        })
+
         toast.success('ADD TO CART SUCCESS ',
             {
                 icon: '❤️',
@@ -49,22 +56,28 @@ export default function ProductScreen(props) {
                     // fontSize: "1.5rem"
                 },
             });
-        console.log("TOASTTs");
     }
 
     const fetchData = async () => {
-        const response = await axios.get(`http://localhost:5000/api/Items/${slug}`);
-        setData(response.data);
-        setLoading(false);
+        const response = await axios.get(`http://localhost:5000/api/Items/${slug}`).then
+            ((res) => {
+                console.log('res' + JSON.stringify(res.data));
+                console.log('res.data' + res.data);
+                setData(res.data);
+                setLoading(false);
+            })
     }
 
 
     useEffect(() => {
 
-        fetchData();
+        if(slug != undefined){
+            fetchData();
+
+        }
         console.log('data = = = = = ' + data);
 
-    }, [])
+    }, [slug])
 
     if (loading) {
         //loading on slow internet
@@ -97,7 +110,7 @@ export default function ProductScreen(props) {
                     <Button danger shape="circle" icon={<HeartOutlined />}
                         style={{ marginTop: "3rem", backgroundColor: 'pink' }}
                         size={'large'}
-                        onClick={toastFavSuccess}
+                        onClick={() => toastFavSuccess(data._id)}
                     />
                 </Tooltip>
 
