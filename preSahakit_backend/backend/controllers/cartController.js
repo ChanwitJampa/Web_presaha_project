@@ -74,7 +74,7 @@ const addItemToCart = asyncHandler(async (req, res) => {
             res.status(200).json(newCart)
         }else if(check==0){
             res.status(400)
-            throw new Error(`can't `)
+            throw new Error(`amount should be more than 0 `)
         }
     }
 
