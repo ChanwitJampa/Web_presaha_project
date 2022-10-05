@@ -43,8 +43,9 @@ const setItem = asyncHandler(async (req, res) => {
             description: req.body.description,
             imagePath: req.body.imagePath,
         })
-    }
         res.status(200).json(item)
+    }
+      
 })
 
 
