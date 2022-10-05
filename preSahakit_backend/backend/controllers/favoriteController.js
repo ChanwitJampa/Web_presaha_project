@@ -37,6 +37,31 @@ const getFavoriteByUserName = asyncHandler(async (req, res) => {
 })
 
 
+const getFavorite2 = asyncHandler(async (req, res) => {
+
+    let listFavoriteID = []
+    const user = await User.findOne({ userName: req.params.id })
+    
+
+    if (!user) {
+        res.status(400)
+        throw new Error(`${req.params.id} userID is not found`)
+    }
+    const userID = user._id
+
+    const listFavorite = await Favorite.findOne({ userID: userID })
+
+    if (!listFavorite) {
+        res.status(200).json({userID:userID,Item:[]})
+    }
+    else{
+        for(let i=0;i<listFavorite.Items.length;i++){
+            listFavoriteID.push(listFavorite.Items[i].itemID)
+        }
+        res.status(200).json(listFavoriteID)
+    }
+        
+})
 
 const updateFavorite = asyncHandler(async (req, res) => {
 
@@ -72,5 +97,6 @@ const updateFavorite = asyncHandler(async (req, res) => {
 module.exports = {
     getAllFavorite,
     getFavoriteByUserName,
-    updateFavorite
+    updateFavorite,
+    getFavorite2
 }
