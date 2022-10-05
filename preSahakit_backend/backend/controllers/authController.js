@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { getMaxListeners, findOne } = require('../models/userModel');
 const { hidden } = require('colors');
+const md5 = require('md5');
+const crypto = require('crypto')
 
 
 //@desc login
@@ -25,6 +27,8 @@ const login = asyncHandler(async (req, res) => {
     const user = await User.findOne({ userName }).select('+password').select('+role')
 
     if (user) {
+        
+        if((await bcrypt.compare(password, user.password))){
             const oldUser = await User.findOne({ userName }).select('+role')
             console.log(`old user`)
             const token = jwt.sign(
@@ -35,11 +39,17 @@ const login = asyncHandler(async (req, res) => {
             //if want to deselect _id await User.findOne({ userName }, '-_id')
             oldUser.token = token
             res.status(200).json(oldUser)
+        }
+        else{
+            res.status(400)
+            throw new Error('wrong -password or username')
+        }
+           
 
     }
     else {
         res.status(400)
-        throw new Error('wrong userName')
+        throw new Error('wrong password or -username')
 
     }
 })

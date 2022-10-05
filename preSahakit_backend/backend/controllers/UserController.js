@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { getMaxListeners } = require('../models/userModel');
 const { hidden } = require('colors');
+const md5 = require('md5');
 
 //@desc Get users
 //@route GET /api/users
@@ -36,11 +37,11 @@ const setUser = asyncHandler(async (req, res) => {
         throw new Error(' please add userName value')
     }
 
+  
     encryptedPassword = await bcrypt.hash(password, 10)
-
     const user = await User.create({
         userName: req.body.userName,
-        password: req.body.password,
+        password: encryptedPassword,
         phoneNumber: req.body.phoneNumber,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
