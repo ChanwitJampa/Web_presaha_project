@@ -17,7 +17,7 @@ const orderSchema = mongoose.Schema({
    }],
    total:{type:Number,required: [true,'Please add a total']},
    address:{type: Object,required: [true,'Please add a address']},
-   status:{type:String, defualt:"pending"}
+   status:{type:String, default:"pending"}
 },)
 
 module.exports = mongoose.model('Order', orderSchema)

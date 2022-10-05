@@ -18,7 +18,7 @@ const getCarts = asyncHandler(async (req, res) => {
 
 
 const updateCart = asyncHandler(async (req, res) => {
-   
+
     const user = await User.findOne({ userName: req.body.userName })
 
     if (!user) {
@@ -29,21 +29,21 @@ const updateCart = asyncHandler(async (req, res) => {
     const userID = user._id
 
     var listItems = req.body.Items
-    for(let i=0;i<listItems.length;i++){
-        if(!ObjectId.isValid(listItems[i].itemID)){
+    for (let i = 0; i < listItems.length; i++) {
+        if (!ObjectId.isValid(listItems[i].itemID)) {
             res.status(400)
             throw new Error(`${listItems[i].itemID} is not Object ID type`)
         }
         const itemFound = await Item.findById(listItems[i].itemID)
-        if(!itemFound){
+        if (!itemFound) {
             res.status(400)
             throw new Error(`${listItems[i].itemID} item is not found`)
         }
-        if(!listItems[i].amount>0){
+        if (!listItems[i].amount > 0) {
             res.status(400)
             throw new Error(`${listItems[i].itemID}  amount should be more than 0`)
         }
-        console.log(listItems[i].itemID)
+
     }
 
     const cart = await Cart.findOne({ userID: userID })
@@ -58,7 +58,7 @@ const updateCart = asyncHandler(async (req, res) => {
         }
     }
     else {
-        const newCart = new Cart({userID:userID, Items:req.body.Items});
+        const newCart = new Cart({ userID: userID, Items: req.body.Items });
 
         try {
             const saveCart = await newCart.save()
@@ -74,31 +74,56 @@ const updateCart = asyncHandler(async (req, res) => {
 
 
 const deleteCart = asyncHandler(async (req, res) => {
-   
+
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400)
         throw new Error(`${req.params.id} is not Object ID type`)
     }
     await Cart.findByIdAndDelete(req.params.id)
-    res.status(200).json({message:"delete succuess ", id: req.params.id })
+    res.status(200).json({ message: "delete succuess ", id: req.params.id })
 })
 
 
 
 const getCartByUserName = asyncHandler(async (req, res) => {
 
-    const user = await User.findOne({userName:req.params.id})
-    if(!user){
+    const user = await User.findOne({ userName: req.params.id })
+    if (!user) {
         res.status(400)
         throw new Error(`${req.params.id} userName not found`)
     }
     const userID = user._id
-    const cart = await Cart.findOne({userID:userID})
+    const cart = await Cart.findOne({ userID: userID })
     if (!cart) {
         res.status(200).json([])
-        
-    }else
-    res.status(200).json(cart)
+
+    } else {
+        let count = 0;
+        for (let i = 0; i < cart.Items.length; i++) {
+            // console.log(cart.Items[i].itemID)
+            let findItem = await Item.findById(cart.Items[i].itemID)
+            if (!findItem) {
+                //  console.log("found " + findItem)
+                cart.Items.splice(i, 1)
+                i--
+                count++
+            }
+
+        }
+        if (count > 0) {
+            await Cart.findByIdAndUpdate(cart._id, { userID: userID, Items: cart.Items }, { new: true })
+            console.log("update someitem disapear")
+        }
+        if (cart.Items.length == 0) {
+            const newCart2 = await Cart.findByIdAndDelete(cart._id)
+            console.log(cart._id)
+            res.status(200).json([])
+        } else {
+            res.status(200).json(cart)
+        }
+
+    }
+
 })
 
 

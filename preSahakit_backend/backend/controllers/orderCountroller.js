@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Item = require('../models/itemModel');
 const User = require('../models/userModel');
 const Order = require('../models/orderModel');
+const Cart = require('../models/cartModel');
 
 const ObjectId = require('mongoose').Types.ObjectId;
 
@@ -17,41 +18,65 @@ const getOrders = asyncHandler(async (req, res) => {
 
 
 
-const updateOrder = asyncHandler(async (req, res) => {
-
-
-    const user = await User.findOne({ userName: req.body.userName })
-
-    if (!user) {
+const addOrder = asyncHandler(async (req, res) => {
+    if(!ObjectId.isValid(req.body.cartID)){
         res.status(400)
-        throw new Error(`userID ${req.body.userName} is not found`)
+        throw new Error(`${req.body.cartID} is not Object ID type`)
+    }
+    if(req.body.address==null){
+        res.status(400)
+        throw new Error(`require address`)
     }
 
+    const user = await User.findOne({userName:req.body.userName})
+    if(!user){
+        res.status(400)
+        throw new Error(`${req.body.userName} user not found`)
+    }
     const userID = user._id
 
+    const cart = await Cart.findById(req.body.cartID)
+    if(!cart){
+        res.status(400)
+        throw new Error(`${req.body.cartID} cart id is not found`)
+    }
 
-    const order = await Order.findOne({ userID: userID })
+    if(!cart.userID.equals(user._id)){
+        res.status(400)
+        throw new Error(`user and cartID not match not found cart on this user`)
+    }
 
-    if (order) {
-        try {
-            const updateOrder = await Order.findByIdAndUpdate(order._id, { userID: userID, Items: req.body.Items }, { new: true })
-            res.status(200).json(updateOrder)
-        } catch (err) {
-            res.status(400)
-            throw new Error(`${err}`)
+    let total =0;
+    let count=0;
+    for(let i=0; i< cart.Items.length; i++){
+        var foundItem = await Item.findById(cart.Items[i].itemID)
+        if(!foundItem){
+            cart.Items.splice(i,1)
+            i--
+            count++;
+        }
+        else{
+            total+=foundItem.price*cart.Items[i].amount
         }
     }
-    else {
-        const newOrder = new Order({userID:userID, Items:req.body.Items, address:req.body.address, total:req.body.total});
-        try {
-            const saveOrder = await newOrder.save()
-            res.status(200).json(saveOrder)
-        } catch (err) {
-            console.log(err)
-            res.status(400)
-            throw new Error(`can't create Order`)
-        }
+
+    if (count > 0) {
+        await Cart.findByIdAndUpdate(cart._id, { userID: userID, Items: cart.Items }, { new: true })
+        console.log("update someitem disapear")
     }
+    if (cart.Items.length == 0) {
+        await Cart.findByIdAndDelete(cart._id)
+        console.log("delete cart because items is 0") 
+    } 
+
+    const newOrder = await Order.create({
+        userID: userID,
+        Items: cart.Items,
+        total: total,
+        address: req.body.address,
+    })
+
+    res.status(200).json(newOrder)
 
 })
 
@@ -88,11 +113,30 @@ const getOrder = asyncHandler(async (req, res) => {
 })
 
 
+const getAllOrderByUserName = asyncHandler(async (req, res) => {
+
+    const user = await User.findOne({userName:req.params.id})
+    if(!user){
+        res.status(400)
+        throw new Error(`${req.params.id} userName is not found`)
+    }
+    const userID = user._id
+    
+    const order = await Order.findOne({userID:userID})
+
+    if (!order) {
+        res.status(400)
+        throw new Error('order not found')
+    }
+    res.status(200).json(order)
+})
+
 
 
 module.exports = {
     getOrder,
     getOrders,
-    updateOrder,
-    deleteOrder
+    addOrder,
+    deleteOrder,
+    getAllOrderByUserName
 }
