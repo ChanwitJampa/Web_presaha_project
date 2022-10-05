@@ -31,7 +31,12 @@ const favoriteSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: [true, 'Please add a userID']
     },
-    Items: [subSchema]
+    Items: {
+    type:[subSchema],
+    default: [],
+    }
+    
+    
 
 },)
 

@@ -30,7 +30,7 @@ const getFavoriteByUserName = asyncHandler(async (req, res) => {
     const listFavorite = await Favorite.findOne({ userID: userID })
 
     if (!listFavorite) {
-        res.status(200).json({userID:userID,Item:[]})
+        res.status(200).json([])
     }
     else
         res.status(200).json(listFavorite)
@@ -41,7 +41,7 @@ const getFavorite2 = asyncHandler(async (req, res) => {
 
     let listFavoriteID = []
     const user = await User.findOne({ userName: req.params.id })
-    
+
 
     if (!user) {
         res.status(400)
@@ -52,20 +52,20 @@ const getFavorite2 = asyncHandler(async (req, res) => {
     const listFavorite = await Favorite.findOne({ userID: userID })
 
     if (!listFavorite) {
-        res.status(200).json({userID:userID,Item:[]})
+        res.status(200).json([])
     }
-    else{
-        for(let i=0;i<listFavorite.Items.length;i++){
+    else {
+        for (let i = 0; i < listFavorite.Items.length; i++) {
             listFavoriteID.push(listFavorite.Items[i].itemID)
         }
         res.status(200).json(listFavoriteID)
     }
-        
+
 })
 
 const updateFavorite = asyncHandler(async (req, res) => {
 
-    const user = await User.findOne({userName:req.body.userName})
+    const user = await User.findOne({ userName: req.body.userName })
     if (!user) {
         res.status(400)
         throw new Error(`${req.body.userName} userName is not found`)
@@ -94,48 +94,113 @@ const updateFavorite = asyncHandler(async (req, res) => {
     }
 })
 
-const removeFavorite = asyncHandler(async (req, res) => {
 
-    const user = await User.findOne({userName:req.params.id})
-
-    if(!user){
+const addFavorite = asyncHandler(async (req, res) => {
+    const user = await User.findOne({ userName: req.params.id })
+    if (!user) {
         res.status(400)
-            throw new Error(`${req.params.id} userName is not found`)
+        throw new Error(`${req.params.id} userID is not found`)
     }
+    const userID = user._id
 
     const item = await Item.findById(req.body.itemID)
-
-    if(!item){
+    if (!item) {
         res.status(400)
-            throw new Error(`${req.body.itemID} itemID is not found`)
+        throw new Error(`${req.body.itemID} item is not found`)
     }
 
-    const userID=user._id
-    const userFavorite = await Favorite.findOne({userID:userID})
-    const listFavorite = userFavorite.Items
-    let count =0;
-    for(let i=0; i<listFavorite.length; i++){
-       
-        if(listFavorite[i].itemID.equals(req.body.itemID)){
-            listFavorite.splice(i,1)
-            i--
-            count++
-        }
+    var favorite = await Favorite.findOne({ userID: userID })
+
+
+    if (!favorite) {
+        var newFavorite = await Favorite.create({
+            userID: userID,
+            Items: [{ itemID: item._id, name: item.name, price: item.price, description: item.description, imagePath: item.imagePath }]
+        })
+        res.status(200).json(newFavorite)
     }
-    if(count>0){
+    else {
+
+        var listItems = favorite.Items
+
+        for (let i = 0; i < listItems.length; i++) {
+            if (listItems[i].itemID.equals(req.body.itemID)) {
+                res.status(400)
+                throw new Error(`${req.body.itemID} is aleady on favorite`)
+            }
+        }
+
+        listItems.push({ itemID: item._id, name: item.name, price: item.price, description: item.description, imagePath: item.imagePath })
         try {
-            const updateFavorite = await Favorite.findByIdAndUpdate(userFavorite._id, {Items: listFavorite }, { new: true })
-            res.status(200).json({message:`${req.body.itemID} remove from favorite userName : ${req.params.id} success`,response:updateFavorite})
+            const tt = await Favorite.findByIdAndUpdate(favorite._id, { Items: listItems }, { new: true })
+            res.status(200).json({ message: `add favorite success`, response: tt })
         } catch (err) {
             res.status(400)
             throw new Error(`${err}`)
         }
+
     }
-    else
-    {
+
+
+})
+
+
+const removeFavorite = asyncHandler(async (req, res) => {
+
+    const user = await User.findOne({ userName: req.params.id })
+
+    if (!user) {
         res.status(400)
-        throw new Error(`${req.body.itemID} not found on favorite item on user ${userID}`)
+        throw new Error(`${req.params.id} userName is not found`)
     }
+
+    const item = await Item.findById(req.body.itemID)
+
+    if (!item) {
+        res.status(400)
+        throw new Error(`${req.body.itemID} itemID is not found`)
+    }
+
+    const userID = user._id
+
+    const favorite = await Favorite.findOne({ userID: userID })
+
+    if (!favorite) {
+        res.status(200).json([])
+    }
+    else {
+        const userFavorite = await Favorite.findOne({ userID: userID })
+        const listFavorite = userFavorite.Items
+        let count = 0;
+        for (let i = 0; i < listFavorite.length; i++) {
+
+            if (listFavorite[i].itemID.equals(req.body.itemID)) {
+                listFavorite.splice(i, 1)
+                i--
+                count++
+            }
+        }
+
+        if (listFavorite.length == 0) {
+            await Favorite.findByIdAndDelete(favorite._id)
+            res.status(200).json([])
+        }
+        else if (count > 0) {
+            try {
+                const updateFavorite = await Favorite.findByIdAndUpdate(userFavorite._id, { Items: listFavorite }, { new: true })
+                res.status(200).json({ message: `${req.body.itemID} remove from favorite userName : ${req.params.id} success`, response: updateFavorite })
+            } catch (err) {
+                res.status(400)
+                throw new Error(`${err}`)
+            }
+        }
+        else {
+            res.status(400)
+            throw new Error(`${req.body.itemID} not found on favorite item on user ${userID}`)
+        }
+    }
+
+
 })
 
 
@@ -143,6 +208,7 @@ module.exports = {
     getAllFavorite,
     getFavoriteByUserName,
     updateFavorite,
+    addFavorite,
     getFavorite2,
     removeFavorite
 }
