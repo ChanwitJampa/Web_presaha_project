@@ -6,14 +6,77 @@ import { Select } from 'antd';
 import { InfoCircleOutlined, PercentageOutlined } from '@ant-design/icons';
 import { Input, Tooltip } from 'antd';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Loader from '../components/Loader';
+import CheckoutModal from '../components/CheckoutModal';
+import StripeCheckout from 'react-stripe-checkout';
 
 const { Option, OptGroup } = Select;
 
+const KEY = 'pk_test_51LpZMYDfACmXb1N7AhKEZVldEHC7TdmRwCjKGdyX0UcXYqHxPvP0HcPY1PL7ixurMx06p8AZLzITe2MxNQMJXdrL00tTzlogKK';
+
 export default function Cart() {
+
+    const [stripeToken, setStripeToken] = useState(null);
+
+    const onToken = (token) => {
+        console.log(token);
+        setStripeToken(token);
+    }
+
+    useEffect(() => {
+        const makeRequest = async () => {
+            try {
+                const res = await axios.post(
+                    'http://localhost:5000/api/payment',
+                    {
+                        tokenId: stripeToken.id,
+                        amount: 59900
+                    }
+                ).then((res) => {
+                    console.log(res);
+                    history.push('/');
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        makeRequest();
+    }, [stripeToken])
+
+
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+
+    const fetchData = async () => {
+        const response1 = await axios.get('http://localhost:5000/api/cart/Test')
+            .then((res) => {
+                console.log(res.data.Items);
+                setData(res.data.Items);
+            })
+    }
+
+    useEffect(() => {
+        fetchData();
+        console.log(data);
+        setLoading(false);
+
+    }, [])
 
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
+
+    if (loading) {
+        //loading on slow internet
+        return <>
+            <main className={styles.main}>
+                <div className={styles.spinner}><Loader /></div>
+            </main>
+        </>
+    }
 
 
     return (
@@ -30,21 +93,37 @@ export default function Cart() {
                             </h1>
 
                             <h1 className={styles.itemNum}>
-                                3 Items
+                                {data && data.length} Items
                             </h1>
 
                         </div>
 
-                        <div className={styles.greyLine} />
+                        {/* <div className={styles.greyLine} /> */}
 
                         <div className={styles.cartItemSection}>
-                            <CartItem />
+
+                            {data && data.map((item) => {
+                                return (
+                                    <>
+                                        <div className={styles.greyLine} />
+
+                                        <CartItem
+                                            data={data}
+                                            title={item.name}
+                                            quantity={item.amount}
+                                            price={item.price}
+                                            imagePath={item.imagePath} />
+                                    </>
+                                )
+                            })}
+
+                            {/* <CartItem />
                             <div className={styles.greyLine} />
 
                             <CartItem />
                             <div className={styles.greyLine} />
 
-                            <CartItem />
+                            <CartItem /> */}
 
                         </div>
 
@@ -52,7 +131,7 @@ export default function Cart() {
 
                             <div className={styles.backBtnCart}>
 
-                                <TbArrowLeftBar style={{ fontSize: "2rem",marginBottom:"0.4rem" }} />
+                                <TbArrowLeftBar style={{ fontSize: "2rem", marginBottom: "0.4rem" }} />
 
                                 <h1 className={styles.backBtnCartText}>Back to shop</h1>
 
@@ -89,11 +168,11 @@ export default function Cart() {
                                 onChange={handleChange}
                             >
                                 <OptGroup label="Kerry">
-                                    <Option value="kerry_quick">fase 40 baht</Option>
-                                    <Option value="kerry_free">normal 7 day Free</Option>
+                                    <Option value="fast 40 baht">fast 40 baht</Option>
+                                    <Option value="normal 7 day Free">normal 7 day Free</Option>
                                 </OptGroup>
                                 <OptGroup label="ไปรษณีย์ ไทย">
-                                    <Option value="thai_normal">35 normal derivery</Option>
+                                    <Option value="normal 35 derivery">normal 35 derivery</Option>
                                 </OptGroup>
                             </Select>
 
@@ -122,9 +201,25 @@ export default function Cart() {
                             <h1 className={styles.sumPriceTextCart}>$ 123</h1>
                         </div>
 
-                        <div className={styles.checkoutBtn}>
+                        {/* <div className={styles.checkoutBtn}>
                             CHECKOUT
-                        </div>
+                        </div> */}
+                        {/* <CheckoutModal /> */}
+                        <StripeCheckout
+                            name='KU - SHOP'
+                            image='https://avatars.githubusercontent.com/u/1486366?v=4'
+                            billingAddress
+                            shippingAddress
+                            description={`Your total is $${123}`}
+                            amount={12300}
+                            token={onToken}
+                            stripeKey={KEY}
+                            style={{ width: "100px" }}
+                        >
+                            <CheckoutModal />
+
+                        </StripeCheckout>
+
 
                     </div>
 

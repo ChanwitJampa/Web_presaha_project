@@ -53,7 +53,9 @@ export default function Profile() {
                         </div>
 
                         <div className={styles.middleRowCard}>
-                            <h1 className={styles.moneyAmount}>$ 5000</h1>
+                            {/* <h1 className={styles.moneyAmount}>$ 5000</h1> */}
+                            <h1 className={styles.moneyAmount}> CARD</h1>
+
                         </div>
 
                         <div className={styles.bottomRowCard}>

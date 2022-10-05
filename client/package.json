@@ -17,6 +17,7 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.3.0",
     "react-icons": "^4.4.0",
+    "react-stripe-checkout": "^2.6.3",
     "sass": "^1.54.8",
     "typescript": ">=3.3.1"
   },
