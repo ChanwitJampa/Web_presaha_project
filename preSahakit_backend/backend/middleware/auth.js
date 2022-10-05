@@ -21,7 +21,7 @@ const verifyToken = (req,res,next)=>{
     console.log(token)
     if(!token){
          res.status(403)
-         throw new Error("A token is required for authentication")
+         throw new Error("A token is required for authentication123")
     }
 
     try{
