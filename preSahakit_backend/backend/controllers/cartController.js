@@ -67,7 +67,7 @@ const addItemToCart = asyncHandler(async (req, res) => {
             }
 
         }
-        if (check == 0 && amount >0) {
+        if (check == 0 && req.body.amount >0) {
             const foundItem = await Item.findById(req.body.itemID)
             cart.Items.push({ itemID: foundItem._id, name: foundItem.name, price: foundItem.price, description: foundItem.description, imagePath: foundItem.imagePath, amount: req.body.amount })
             const newCart = await Cart.findByIdAndUpdate(cart._id, { Items: cart.Items }, { new: true })
