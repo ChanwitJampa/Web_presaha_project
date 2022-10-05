@@ -72,7 +72,7 @@ const addItemToCart = asyncHandler(async (req, res) => {
             cart.Items.push({ itemID: foundItem._id, name: foundItem.name, price: foundItem.price, description: foundItem.description, imagePath: foundItem.imagePath, amount: req.body.amount })
             const newCart = await Cart.findByIdAndUpdate(cart._id, { Items: cart.Items }, { new: true })
             res.status(200).json(newCart)
-        }else{
+        }else if(check==0){
             res.status(400)
             throw new Error(`can't `)
         }
