@@ -133,6 +133,21 @@ const deleteDiscount = asyncHandler(async (req, res) => {
     res.status(200).json(`delete discount success ${req.params.id}`)
 })
 
+const putDiscount = asyncHandler(async (req, res) => {
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400)
+        throw new Error(`${req.params.id} is not Object ID type`)
+    }
+
+    const discount = await Discount.findById(req.params.id)
+    if (!discount) {
+        res.status(400)
+        throw new Error(`${req.params.id} DiscountID is not found`)
+    }
+
+    const updatedDiscount = await Discount.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.status(200).json({message: "update success",updatedDiscount})
+})
 
 
 module.exports = {
@@ -140,5 +155,6 @@ module.exports = {
     setDiscount,
     useDiscount,
     getAllDiscount,
-    deleteDiscount
+    deleteDiscount,
+    putDiscount
 }

@@ -26,10 +26,6 @@ const hospitalSchema = mongoose.Schema({
         type: String,
         required:[true,'Please add a  address']
     },
-    favoriteItem:[{
-        type: mongoose.Schema.Types.ObjectId,
-        default:[]
-    }],
     role:{
         type: String,
         select: false,

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const hospitalSchema = mongoose.Schema({
+const ItemSchema = mongoose.Schema({
     name:{
         type: String,
         required:[true,'Please add a name']
@@ -20,4 +20,4 @@ const hospitalSchema = mongoose.Schema({
     
 },)
 
-module.exports = mongoose.model('Item', hospitalSchema)
+module.exports = mongoose.model('Item', ItemSchema)

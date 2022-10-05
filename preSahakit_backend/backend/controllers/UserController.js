@@ -47,7 +47,6 @@ const setUser = asyncHandler(async (req, res) => {
         lastName: req.body.lastName,
         address : req.body.address,
         role: req.body.role,
-        hospitalID: req.body.hospitalID,
         // role: req.body.role === undefined ? "hospital" : req.body.role
     })
     oldUser = await User.findOne({ userName }).select('+role')

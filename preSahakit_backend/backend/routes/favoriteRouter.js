@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { getFavoriteItem, setFavoriteItem, removeFavoriteItem} = require("../controllers/favoriteController")
+const {getAllFavorite, getFavoriteByUserName, updateFavorite} = require("../controllers/favoriteController")
 
-router.route('/:userName').get(getFavoriteItem).post(setFavoriteItem).delete(removeFavoriteItem)
-
+router.route('/').get(getAllFavorite).post(updateFavorite)
+router.route('/:id').get(getFavoriteByUserName)
 
 module.exports = router
