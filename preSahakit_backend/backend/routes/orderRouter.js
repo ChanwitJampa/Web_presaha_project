@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { getOrderByUserID, updateOrder, getOrders } = require("../controllers/orderCountroller")
+const { deleteOrder, getOrder, getOrders, updateOrder} = require("../controllers/orderCountroller")
 
 router.route('/').get(getOrders).post(updateOrder)
-router.route('/:id').get(getOrderByUserID)
+router.route('/:id').delete(deleteOrder).get(getOrder)
 
 module.exports = router

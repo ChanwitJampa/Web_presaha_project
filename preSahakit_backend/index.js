@@ -32,6 +32,8 @@ app.use('/api/Items', require('./backend/routes/itemRouter'))
 app.use('/api/FavoriteItem', require('./backend/routes/favoriteRouter'))
 app.use('/api/login', require('./backend/routes/authRouter'))
 app.use('/api/Order', require('./backend/routes/orderRouter'))
+app.use('/api/Cart', require('./backend/routes/cartRouter'))
+app.use('/api/payment', require('./backend/routes/stripeRouter'))
 app.use('/api/discount', require('./backend/routes/discountRouter'))
 
 app.post('/api/authen', (req, res) => {

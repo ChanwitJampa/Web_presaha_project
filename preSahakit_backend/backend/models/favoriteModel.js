@@ -5,7 +5,7 @@ const favoriteSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: [true, 'Please add a userID']
     },
-    Item: [
+    Items: [
         {
             name: {
                 type: String,

@@ -1,121 +1,76 @@
 
 const asyncHandler = require('express-async-handler')
+const Discount = require('../models/discountModel')
+
+const mongoose = require("mongoose");
+
 const User = require('../models/userModel')
-const Item = require('../models/itemModel')
-const { default: mongoose } = require('mongoose');
-const e = require('express');
+const Item = require('../models/itemModel');
+const Favorite = require('../models/favoriteModel');
+
 const ObjectId = require('mongoose').Types.ObjectId;
-//@desc Get favorite
-//@route GET /api/users/favoriteItem
-//@access Private
-const getFavoriteItem = asyncHandler(async (req, res) => {
-    const user = await User.findOne({ userName: req.params.userName })
-    if (!user) {
-        res.status(400)
-        throw new Error('user id not found')
-    }
-    res.status(200).json(user.favoriteItem)
+
+const getAllFavorite = asyncHandler(async (req, res) => {
+    const favorite = await Favorite.find()
+    res.status(200).json(favorite)
 })
 
-//@desc Get user
-//@route GET /api/users/:id
-//@access Private
-const setFavoriteItem = asyncHandler(async (req, res) => {
 
-    const user = await User.findOne({ userName: req.params.userName })
-    const { itemID } = req.body
+
+const getFavoriteByUserName = asyncHandler(async (req, res) => {
+
+    const user = await User.findOne({ userName: req.params.id })
+
     if (!user) {
         res.status(400)
-        throw new Error('user id not found')
+        throw new Error(`${req.params.id} userID is not found`)
+    }
+    const userID = user._id
+
+    const listFavorite = await Favorite.findOne({ userID: userID })
+
+    if (!listFavorite) {
+        res.status(200).json({userID:userID,Item:[]})
+    }
+    else
+        res.status(200).json(listFavorite)
+})
+
+
+
+const updateFavorite = asyncHandler(async (req, res) => {
+
+    const user = await User.findOne({userName:req.body.userName})
+    if (!user) {
+        res.status(400)
+        throw new Error(`${req.body.userName} userName is not found`)
+    }
+
+    const userID = user._id
+    const favorite = await Favorite.findOne({ userID: userID })
+
+
+    if (!favorite) {
+        const createFavorite = await Favorite.create({
+            userID: userID,
+            Items: req.body.Items,
+        })
+        res.status(200).json(createFavorite)
     }
     else {
-        if (!ObjectId.isValid(itemID)) {
+        try {
+            const updateFavorite = await Favorite.findByIdAndUpdate(favorite._id, { userID: userID, Items: req.body.Items }, { new: true })
+            res.status(200).json(updateFavorite)
+        } catch (err) {
             res.status(400)
-            throw new Error('is not Object ID type')
-        }
-        const item = await Item.findById(mongoose.Types.ObjectId(itemID))
-
-        if (item) {
-            var test = user.favoriteItem
-            if (!test.includes(itemID)) {
-                test.push(itemID)
-                var myquery = { userName: req.params.userName };
-                var newvalues = { $set: { favoriteItem: user.favoriteItem } };
-                User.updateOne(myquery, newvalues, function (err, res) {
-                    if (err)
-                        console.log(err)
-                })
-                res.status(200).json(user.favoriteItem)
-            }
-            else {
-                res.status(400)
-                throw new Error('Item id is aleady in favorite')
-            }
-
-
-        }
-        else {
-            res.status(400)
-            throw new Error('Item id not found')
+            throw new Error(`${err}`)
         }
 
     }
-
 })
-
-
-const removeFavoriteItem = asyncHandler(async (req, res) => {
-
-    const user = await User.findOne({ userName: req.params.userName })
-    const { itemID } = req.body
-    if (!user) {
-        res.status(400)
-        throw new Error(`${itemID} user id not found`)
-    }
-    else {
-        if (!ObjectId.isValid(itemID)) {
-            res.status(400) 
-            throw new Error(`${itemID} is not Object ID type`)
-        }
-        const item = await Item.findById(mongoose.Types.ObjectId(itemID))
-
-        if (item) {
-            var test = user.favoriteItem
-            if (test.includes(itemID)) {
-                // test.forEach(Myfunction);
-                // function Myfunction(e){
-                //     console.log(e+ " " +mongoose.Types.ObjectId(itemID)+ "  | "+e.equals(mongoose.Types.ObjectId(itemID)))
-                // }
-
-                test = test.filter(e => !e.equals(mongoose.Types.ObjectId(itemID)) );
-                var myquery = { userName: req.params.userName };
-                var newvalues = { $set: { favoriteItem: test } };
-                User.updateOne(myquery, newvalues, function (err, res) {
-                    if (err)
-                        console.log(err)
-                })
-                res.status(200).json("delete "+ itemID+" success")
-            }
-            else {
-                res.status(400)
-                throw new Error('item ID not found on users favorite')
-            }
-
-
-        }
-        else {
-            res.status(400)
-            throw new Error('Item id not found')
-        }
-
-    }
-
-})
-
-
 
 module.exports = {
-    getFavoriteItem,
-    setFavoriteItem,
-    removeFavoriteItem
+    getAllFavorite,
+    getFavoriteByUserName,
+    updateFavorite
 }
