@@ -63,7 +63,7 @@ export default function Login() {
             <div className={styles.loginPage}>
                 <h1>Login</h1>
                 <Input size="large" placeholder="user" style={{ marginBottom: "2rem" }} onChange={onChangeID} />
-                <Input size="large" placeholder="password" style={{ marginBottom: "2rem" }} onChange={onChangePass} />
+                <Input.Password size="large" placeholder="password" style={{ marginBottom: "2rem" }} onChange={onChangePass} />
                 <Button onClick={submit}>Login</Button>
             </div>
         </div>

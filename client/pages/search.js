@@ -21,12 +21,18 @@ export default function Search({ value }) {
 
     const router = useRouter()
     console.log(router.query);
-    const params = router.query.value
+    let params = router.query.value
 
     const [data, setData] = useState(null);
     const [searchItem, setsearchItem] = useState(null);
     const [userFav, setUserFav] = useState(null);
     const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        fetchData();
+    }, [params])
+
     const toastSuccess = () => {
         toast.success('ADD TO CART SUCCESS ',
             {
@@ -100,7 +106,7 @@ export default function Search({ value }) {
             // setLoading(false);
         })
 
-        const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/Test');
+        const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/justID/Test');
 
         // setData(response1.data);
         setUserFav(response2.data);

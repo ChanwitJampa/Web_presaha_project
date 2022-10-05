@@ -17,6 +17,7 @@ const gotoSearch = (value) => {
         pathname: '/search',
         query: { value: value },
     })
+    // Router.reload();
 }
 
 
@@ -43,6 +44,7 @@ export default function Navbar() {
                 <Search
                     placeholder="Search our store"
                     onSearch={gotoSearch}
+                    allowClear
                     style={{
                         width: 200,
                     }}

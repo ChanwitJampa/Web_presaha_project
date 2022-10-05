@@ -23,6 +23,8 @@ export default function Home() {
   const [userFav, setUserFav] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  let favArr = [];
+
   const toastSuccess = () => {
     toast.success('ADD TO CART SUCCESS ',
       {
@@ -88,13 +90,15 @@ export default function Home() {
 
   const fetchData = async () => {
     const response1 = await axios.get('http://localhost:5000/api/Items');
-    const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/Test');
+    const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/justID/Test');
 
     setData(response1.data);
     setUserFav(response2.data);
     setLoading(false);
-    console.log(data);
-    console.log(userFav);
+    // console.log(data);
+    // console.log(userFav);
+    // console.log(userFav.Items);
+
   }
   useEffect(() => {
 

@@ -87,25 +87,29 @@ export default function Favorite({ value }) {
     }
 
     const fetchData = async () => {
-        const response1 = await axios.get('http://localhost:5000/api/Items').then((res) => {
-            // setData(res.data);
-            userFav.forEach(e => {
-                // setFavItem(res.data.filter(data => data._id.includes(e)));
-                favItem = favItem.concat(res.data.filter(data => data._id.includes(e)));
-            });
-            
-            console.log("FAVVVVVVVVVVV === " + typeof favItem);
+        const response1 = await axios.get('http://localhost:5000/api/FavoriteItem/Test')
+            .then((res) => {
+                console.log(res.data.Items);
+                setData(res.data.Items);
+                // userFav.forEach(e => {
+                //     // setFavItem(res.data.filter(data => data._id.includes(e)));
+                //     favItem = favItem.concat(res.data.filter(data => data._id.includes(e)));
+                // });
 
-            // setLoading(false);
-        })
+                // console.log("FAVVVVVVVVVVV === " + typeof favItem);
 
-        const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/Test');
+                // setLoading(false);
+            })
 
-        // setData(response1.data);
+        // const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/Test');
+        const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/justID/Test');
+        // console.log(response1);
+        // setData(response1.data.Items);
+        // console.log(data);
         setUserFav(response2.data);
         // console.log("SEARCHEDDD === " + searchItem);
         // console.log(data);
-        // console.log(userFav);
+        console.log(userFav);
 
         setLoading(false);
     }
@@ -140,8 +144,8 @@ export default function Favorite({ value }) {
 
             <div className={styles.grid}>
 
-                {userFav && favItem.map((item) => {
-                    console.log('FAAFFDSFSDFSDFDSFSDFSDF',item);
+                {/* {userFav && favItem.map((item) => { */}
+                {data && data.map((item) => {
                     return (
                         <Card
                             hoverable
@@ -162,11 +166,8 @@ export default function Favorite({ value }) {
                             }
                             actions={[
                                 <>
-                                    {
-                                        !(userFav.includes(item._id))
-                                            ? <HeartOutlined onClick={() => toastFavSuccess(item._id)} key="edit" style={{ fontSize: '16px', color: '#E80F88', }} />
-                                            : <HeartFilled onClick={() => delFavSuccess(item._id)} style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
-                                    }
+                                    <HeartFilled onClick={() => delFavSuccess(item._id)} style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
+                                    
                                 </>,
                                 // <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />,
                                 <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,

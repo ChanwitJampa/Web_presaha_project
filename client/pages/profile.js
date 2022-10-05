@@ -8,15 +8,36 @@ import { InfoCircleOutlined, HeartOutlined } from '@ant-design/icons';
 import { Input, Tooltip } from 'antd';
 import History from '../components/History';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import Loader from '../components/Loader';
+import toast from 'react-hot-toast';
 
 const { Option, OptGroup } = Select;
 
 export default function Profile() {
 
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        setUser(JSON.parse(window.localStorage.getItem("user")));
+        console.log(user);
+        setLoading(false);
+    }, [])
+
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
 
+    if (loading) {
+        //loading on slow internet
+        return <>
+            <main className={styles.main}>
+                <div className={styles.spinner}><Loader /></div>
+            </main>
+        </>
+    }
 
     return (
         <div className={styles.main}>
@@ -36,7 +57,8 @@ export default function Profile() {
                         </div>
 
                         <div className={styles.bottomRowCard}>
-                            <h1 className={styles.nameCard}>Jittipon Kumrai</h1>
+                            {/* <h1 className={styles.nameCard}>Jittipon Kumrai</h1> */}
+                            <h1 className={styles.nameCard}>{user.firstName} {user.lastName}</h1>
                             <div className={styles.circleArea}>
 
                                 <div className={styles.circleLeft}>
@@ -69,17 +91,13 @@ export default function Profile() {
                 <div className={styles.infoSection}>
 
                     <h1 className={styles.label}>Name</h1>
-                    <h1 className={styles.text}>Jittipon Kumurai</h1>
-
-                    <h1 className={styles.label}>Email</h1>
-                    <h1 className={styles.text}>jittipon.ku@gmail.com</h1>
+                    <h1 className={styles.text}>{user.firstName} {user.lastName}</h1>
 
                     <h1 className={styles.label}>Telephon number</h1>
-                    <h1 className={styles.text}>+66 630491424</h1>
+                    <h1 className={styles.text}>{user.phoneNumber}</h1>
 
                     <h1 className={styles.label}>Address</h1>
-                    <h1 className={styles.text}>ห้อง 999 หอ Kamp 99/10 หมู่ 12 ตำบลกำแพงแสน อำเภอกำแพงแสน จังหวัดนครปฐม 73140
-                        อำเภอกำแพงแสน, จังหวัดนครปฐม, 73140</h1>
+                    <h1 className={styles.text}>{user.address}</h1>
 
                 </div>
 
