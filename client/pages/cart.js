@@ -26,6 +26,7 @@ export default function Cart() {
     const [loading, setLoading] = useState(true);
     const [shipping, setShipping] = useState(null);
     const [discount, setDiscount] = useState(null);
+    const [user, setUser] = useState(null);
 
     let matchTemp = 0;
 
@@ -84,6 +85,12 @@ export default function Cart() {
                         }
                     ).then((res) => {
                         console.log(res);
+
+                        axios.delete(
+                            `http://localhost:5000/api/cart/${cartID}`,
+                        ).then((res) => {
+                            console.log(res);
+                        })
                     });
 
                     window.location.href = "/";
@@ -103,12 +110,16 @@ export default function Cart() {
     }, [data])
 
     const fetchData = async () => {
+        setUser(JSON.parse(window.localStorage.getItem("user")));
+        console.log(user);
+
         const response1 = await axios.get('http://localhost:5000/api/cart/Test')
             .then((res) => {
                 console.log(res.data.Items);
                 setData(res.data.Items);
                 setCartID(res.data._id);
             })
+
 
         const responseDiscount = await axios.get('http://localhost:5000/api/discount')
             .then((res) => {
@@ -153,9 +164,16 @@ export default function Cart() {
                                 Shopping Cart
                             </h1>
 
-                            <h1 className={styles.itemNum}>
-                                {data && data.length} Items
-                            </h1>
+                            {user != null
+                                ? <h1 className={styles.itemNum}>
+                                    {data && data.length} Items
+                                </h1>
+                                : <h1 className={styles.itemNum}>
+                                    0 Items
+                                </h1>
+                            }
+
+
 
                         </div>
 
@@ -163,7 +181,7 @@ export default function Cart() {
 
                         <div className={styles.cartItemSection}>
 
-                            {data && data.map((item) => {
+                            {data && user != null && data.map((item) => {
 
                                 return (
                                     <>
@@ -215,7 +233,11 @@ export default function Cart() {
                         <div className={styles.greyLine} style={{ marginTop: "1.5rem" }} />
 
                         <div className={styles.totalCartSection}>
-                            <h1 className={styles.totalTextCart}>{data && data.length} Items</h1>
+                            {user != null
+                                ? <h1 className={styles.totalTextCart}>{data && data.length} Items</h1>
+                                : <h1 className={styles.totalTextCart}>0 Items</h1>
+                            }
+                            {/* <h1 className={styles.totalTextCart}>{data && data.length} Items</h1> */}
                             {/* <h1 className={styles.totalPriceTextCart}>$ 123</h1> */}
                         </div>
 
@@ -264,7 +286,11 @@ export default function Cart() {
 
                         <div className={styles.totalSectionCart}>
                             <h1 className={styles.sumTextCart}>TOTAL PRICE</h1>
-                            <h1 className={styles.sumPriceTextCart}>$ {total}</h1>
+                            {user != null
+                                ? <h1 className={styles.sumPriceTextCart}>$ {total}</h1>
+                                : <h1 className={styles.sumPriceTextCart}>$ 0</h1>
+                            }
+                            {/* // <h1 className={styles.sumPriceTextCart}>$ {total}</h1> */}
                         </div>
 
                         {/* <div className={styles.checkoutBtn}>

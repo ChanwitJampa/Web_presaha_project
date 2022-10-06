@@ -48,6 +48,13 @@ export default function Profile() {
             </main>
         </>
     }
+    if (user == null) {
+        return <>
+            <main className={styles.main}>
+                    <h1>please login</h1>
+            </main>
+        </>
+    }
 
     return (
         <div className={styles.main}>

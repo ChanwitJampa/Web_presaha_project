@@ -20,50 +20,63 @@ export default function ProductScreen(props) {
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
 
 
     console.log(slug);
 
     const toastSuccess = (props) => {
-        axios.post(`http://localhost:5000/api/cart/addItem/Test`, {
-          itemID: props,
-          amount: 1
-        }).then((res) => {
-          console.log(res);
-          console.log(res.data);
-        })
-    
-        toast.success('ADD TO CART SUCCESS ',
-          {
-            // icon: '😝',
-            style: {
-              borderRadius: '10px',
-              padding: "1rem",
-              fontWeight: "bold",
-              // fontSize: "1.5rem"
-            },
-          });
-        console.log("TOASTTs");
-      }
+        if (user == null) {
+            toast.error('Please login to add to cart');
+            window.location.href = '/login';
+        } else {
+
+            axios.post(`http://localhost:5000/api/cart/addItem/Test`, {
+                itemID: props,
+                amount: 1
+            }).then((res) => {
+                console.log(res);
+                console.log(res.data);
+            })
+
+            toast.success('ADD TO CART SUCCESS ',
+                {
+                    // icon: '😝',
+                    style: {
+                        borderRadius: '10px',
+                        padding: "1rem",
+                        fontWeight: "bold",
+                        // fontSize: "1.5rem"
+                    },
+                });
+            console.log("TOASTTs");
+        }
+    }
 
     const toastFavSuccess = (props) => {
-        axios.post(`http://localhost:5000/api/FavoriteItem/Test`, {
-            itemID: props
-        }).then((res) => {
-            console.log(res);
-            console.log(res.data);
-        })
+        if (user == null) {
+            toast.error('Please login to add to favorite');
+            window.location.href = '/login';
+        } else {
 
-        toast.success('ADD TO CART SUCCESS ',
-            {
-                icon: '❤️',
-                style: {
-                    borderRadius: '10px',
-                    padding: "1rem",
-                    fontWeight: "bold",
-                    // fontSize: "1.5rem"
-                },
-            });
+            axios.post(`http://localhost:5000/api/FavoriteItem/Test`, {
+                itemID: props
+            }).then((res) => {
+                console.log(res);
+                console.log(res.data);
+            })
+
+            toast.success('ADD TO CART SUCCESS ',
+                {
+                    icon: '❤️',
+                    style: {
+                        borderRadius: '10px',
+                        padding: "1rem",
+                        fontWeight: "bold",
+                        // fontSize: "1.5rem"
+                    },
+                });
+        }
     }
 
     const fetchData = async () => {
@@ -79,9 +92,10 @@ export default function ProductScreen(props) {
 
     useEffect(() => {
 
-        if(slug != undefined){
+        if (slug != undefined) {
             fetchData();
-
+            setUser(JSON.parse(window.localStorage.getItem("user")));
+            console.log(user);
         }
         console.log('data = = = = = ' + data);
 
