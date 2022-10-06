@@ -2,8 +2,10 @@
 const asyncHandler = require('express-async-handler')
 const stripe = require("stripe")(process.env.STRIPE_KEY)
 
-const userStripe = asyncHandler(async (req, res) => {
+const User = require('../models/');
 
+const userStripe = asyncHandler(async (req, res) => {
+    console.log(req.body.cartID)
     stripe.charges.create({
         source: req.body.tokenId,
         amount: req.body.amount,
