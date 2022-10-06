@@ -33,19 +33,27 @@ export default function Search({ value }) {
         fetchData();
     }, [params])
 
-    const toastSuccess = () => {
+    const toastSuccess = (props) => {
+        axios.post(`http://localhost:5000/api/cart/addItem/Test`, {
+          itemID: props,
+          amount: 1
+        }).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        })
+    
         toast.success('ADD TO CART SUCCESS ',
-            {
-                // icon: '😝',
-                style: {
-                    borderRadius: '10px',
-                    padding: "1rem",
-                    fontWeight: "bold",
-                    // fontSize: "1.5rem"
-                },
-            });
+          {
+            // icon: '😝',
+            style: {
+              borderRadius: '10px',
+              padding: "1rem",
+              fontWeight: "bold",
+              // fontSize: "1.5rem"
+            },
+          });
         console.log("TOASTTs");
-    }
+      }
 
 
     const toastFavSuccess = (props) => {
@@ -178,7 +186,7 @@ export default function Search({ value }) {
                                     }
                                 </>,
                                 // <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />,
-                                <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+                                <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={() => toastSuccess(item._id)} />,
                                 <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
                             ]}
                         >

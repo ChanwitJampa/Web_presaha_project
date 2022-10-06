@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Loader from '../components/Loader';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const { Option, OptGroup } = Select;
 
@@ -18,9 +19,18 @@ export default function Profile() {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [data, setData] = useState(null);
 
+    const fetchData = async () => {
+        const response1 = await axios.get('http://localhost:5000/api/Order/getByUsername/Test');
+        setData(response1.data);
+        console.log(data);
+        setLoading(false);
+
+    }
 
     useEffect(() => {
+        fetchData();
         setUser(JSON.parse(window.localStorage.getItem("user")));
         console.log(user);
         setLoading(false);
@@ -108,9 +118,17 @@ export default function Profile() {
                     <AiOutlineFieldTime style={{ fontSize: "3rem", marginTop: "2rem", color: "rgb(203 59 59)" }} />
                     <h1>history</h1>
 
-                    <History num={1} price={5000} />
+                    {data && data.map((item) => {
+
+                        return (
+                            <>
+                                <History num={item._id} price={item.total} Items={item.Items}/>
+                            </>
+                        )
+                    })}
+                    {/* <History num={1} price={5000} />
                     <History num={2} price={600} />
-                    <History num={3} price={2500} />
+                    <History num={3} price={2500} /> */}
                 </div>
 
 

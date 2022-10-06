@@ -1,22 +1,28 @@
 import styles from '../styles/Home.module.scss'
 import { Button, Modal, Card } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 const { Meta } = Card;
 
 
-export default function History({ num, price, image, link }) {
+export default function History({ num, price, Items, link }) {
     const [modal2Open, setModal2Open] = useState(false);
 
     const handleOk = () => setModal2Open(false)
+
+    useEffect(() => {
+        console.table("Items");
+        console.table(Items);
+    }, [])
+
 
 
     return (
         <>
             <div className={styles.historyComponent} onClick={() => setModal2Open(true)}>
                 <h1 className={styles.historyNumber}>
-                    การสั่งซื้อที่ {num}
+                    ID การสั่งซื้อ {num}
                 </h1>
 
                 <h1 className={styles.historyPrice}>
@@ -30,6 +36,7 @@ export default function History({ num, price, image, link }) {
                 title="Order History"
                 centered
                 open={modal2Open}
+                onCancel={() => setModal2Open(false)}
                 footer={[
                     <Button key="submit" type="primary" onClick={handleOk}>
                         OK
@@ -37,38 +44,49 @@ export default function History({ num, price, image, link }) {
                 ]}
                 width={1000}
             >
-                <div className={styles.historyItem}>
 
-                    <Card
-                        hoverable
-                        style={{
-                            width: 200,
-                            marginRight: "2rem",
-                            marginTop: "1rem"
-                        }}
-                        cover={
-                            <img
-                                alt="example"
-                                src="https://seekthailand.com/uploads/products/b54e058785bd1b0893fd2f1138a312bb.jpg"
-                                className='test'
-                                style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
-                            />
-                        }
-                    >
-                        <Meta
-                            title="Men Long sleeves white"
-                            description="699 THB"
-                        />
-                    </Card>
+                {Items && Items.map((item) => {
 
-                    <div className={styles.numHistoryItem}>
-                        <h1 className={styles.countItem}>x 1</h1>
+                    return (
+                        <>
+                            <div className={styles.historyItem}>
+                                <Card
+                                    hoverable
+                                    style={{
+                                        width: 200,
+                                        marginRight: "2rem",
+                                        marginTop: "1rem"
+                                    }}
+                                    cover={
+                                        <img
+                                            alt="example"
+                                            src={item.imagePath}
+                                            className='test'
+                                            style={{ borderRadius: "2px 2px 0 0", width: "90%", marginLeft: "1rem", marginTop: "1rem" }}
+                                        />
+                                    }
+                                >
+                                    <Meta
+                                        title={item.name}
+                                        description={item.price}
+                                    />
+                                </Card>
 
-                    </div>
+                                <div className={styles.numHistoryItem}>
+                                    <h1 className={styles.countItem}>x {item.amount}</h1>
 
-                </div>
+                                </div>
 
-                <h1 className={styles.totalHistory}>Total 5000 บาท</h1>
+                            </div>
+                        </>
+                    )
+
+
+                })}
+
+
+
+                <h1 className={styles.totalHistory}>Total {price} $</h1>
             </Modal>
         </>
         // <a href={link} className={styles.outline}>

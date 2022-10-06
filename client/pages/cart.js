@@ -11,6 +11,7 @@ import axios from 'axios';
 import Loader from '../components/Loader';
 import CheckoutModal from '../components/CheckoutModal';
 import StripeCheckout from 'react-stripe-checkout';
+import { Router } from 'next/router';
 
 const { Option, OptGroup } = Select;
 
@@ -19,24 +20,73 @@ const KEY = 'pk_test_51LpZMYDfACmXb1N7AhKEZVldEHC7TdmRwCjKGdyX0UcXYqHxPvP0HcPY1P
 export default function Cart() {
 
     const [stripeToken, setStripeToken] = useState(null);
+    const [cartID, setCartID] = useState(null);
+    const [total, setTotal] = useState(null);
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [shipping, setShipping] = useState(null);
+    const [discount, setDiscount] = useState(null);
+
+    let matchTemp = 0;
 
     const onToken = (token) => {
         console.log(token);
         setStripeToken(token);
     }
 
+    const sumTotal = () => {
+
+        setTotal(0);
+        data.forEach(e => {
+            // setTotal(total + (e.amount * e.price));
+            matchTemp += (e.amount * e.price);
+            console.log("e.price", e.price);
+            console.log("e.amount", e.amount);
+            console.log("E.PRICE", e.amount * e.price);
+            console.log("total", total);
+
+            setTotal(matchTemp);
+        });
+
+    }
+
+    const onDiscountChange = (value) => {
+        console.log(discount);
+        if (discount.includes(value)) {
+            console.log("YEAH!!!! MATCH" + discount.name);
+        }
+    };
+
+
     useEffect(() => {
         const makeRequest = async () => {
+            // console.log("id" + JSON.stringify(data));
+            // console.log("CART" + JSON.stringify(cartID));
             try {
                 const res = await axios.post(
                     'http://localhost:5000/api/payment',
                     {
                         tokenId: stripeToken.id,
+                        cartID: cartID,
                         amount: 59900
+
                     }
                 ).then((res) => {
                     console.log(res);
-                    history.push('/');
+
+                    axios.post(
+                        'http://localhost:5000/api/Order',
+                        {
+                            userName: 'Test',
+                            cartID: cartID,
+                            address: stripeToken.card.address_city
+
+                        }
+                    ).then((res) => {
+                        console.log(res);
+                    });
+
+                    window.location.href = "/";
                 });
             } catch (err) {
                 console.log(err);
@@ -46,16 +96,26 @@ export default function Cart() {
     }, [stripeToken])
 
 
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-
+    useEffect(() => {
+        if (data != null) {
+            sumTotal();
+        }
+    }, [data])
 
     const fetchData = async () => {
         const response1 = await axios.get('http://localhost:5000/api/cart/Test')
             .then((res) => {
                 console.log(res.data.Items);
                 setData(res.data.Items);
+                setCartID(res.data._id);
             })
+
+        const responseDiscount = await axios.get('http://localhost:5000/api/discount')
+            .then((res) => {
+                console.log('discount' + res.data);
+                setDiscount(res.data);
+            })
+
     }
 
     useEffect(() => {
@@ -67,6 +127,7 @@ export default function Cart() {
 
     const handleChange = (value) => {
         console.log(`selected ${value}`);
+        setShipping(value);
     };
 
     if (loading) {
@@ -103,16 +164,20 @@ export default function Cart() {
                         <div className={styles.cartItemSection}>
 
                             {data && data.map((item) => {
+
                                 return (
                                     <>
-                                        <div className={styles.greyLine} />
-
-                                        <CartItem
-                                            data={data}
-                                            title={item.name}
-                                            quantity={item.amount}
-                                            price={item.price}
-                                            imagePath={item.imagePath} />
+                                        {item.amount > 0 && <>
+                                            <div className={styles.greyLine} />
+                                            <CartItem
+                                                data={data}
+                                                id={item.itemID}
+                                                title={item.name}
+                                                quantity={item.amount}
+                                                price={item.price}
+                                                imagePath={item.imagePath} />
+                                        </>
+                                        }
                                     </>
                                 )
                             })}
@@ -150,8 +215,8 @@ export default function Cart() {
                         <div className={styles.greyLine} style={{ marginTop: "1.5rem" }} />
 
                         <div className={styles.totalCartSection}>
-                            <h1 className={styles.totalTextCart}>3 Items</h1>
-                            <h1 className={styles.totalPriceTextCart}>$ 123</h1>
+                            <h1 className={styles.totalTextCart}>{data && data.length} Items</h1>
+                            {/* <h1 className={styles.totalPriceTextCart}>$ 123</h1> */}
                         </div>
 
                         <div className={styles.shippingSection}>
@@ -191,6 +256,7 @@ export default function Cart() {
                                         <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                                     </Tooltip>
                                 }
+                                onChange={onDiscountChange}
                             />
                         </div>
 
@@ -198,7 +264,7 @@ export default function Cart() {
 
                         <div className={styles.totalSectionCart}>
                             <h1 className={styles.sumTextCart}>TOTAL PRICE</h1>
-                            <h1 className={styles.sumPriceTextCart}>$ 123</h1>
+                            <h1 className={styles.sumPriceTextCart}>$ {total}</h1>
                         </div>
 
                         {/* <div className={styles.checkoutBtn}>

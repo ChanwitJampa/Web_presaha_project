@@ -2,28 +2,56 @@ import styles from '../styles/Home.module.scss'
 import Image from 'next/image'
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 
-export default function CartItem({ title, quantity, imagePath, price, data }) {
+export default function CartItem({ title, quantity, imagePath, price, data, id }) {
+
+    const [quantityState, setQuantityState] = useState(quantity);
 
     const minusQuantity = (value) => {
-        console.log("minus = " + value);
+        console.log("minus = " + quantityState);
+        setQuantityState(quantityState-1);
+        axios.post('http://localhost:5000/api/cart/addItem/Test', {
+            'itemID': id,
+            'amount' : -1
+        }).then((response) => {
+            console.log(response.data);
+        }).catch((error) => {
+            console.log(error.data);
+        });
     }
 
     const plusQuantity = (value) => {
-        console.log("plus = " + value);
+        console.log("plus = " + quantityState);
+        setQuantityState(quantityState+1);
+        axios.post('http://localhost:5000/api/cart/addItem/Test', {
+            'itemID': id,
+            'amount' : 1
+        }).then((response) => {
+            console.log(response.data);
+        }).catch((error) => {
+            console.log(error.data);
+        });
     }
 
     const postData = async () => {
-        axios.post('http://localhost:5000/api/cart/Test', {
-            data
-
-        }).then((res) => {
-            console.log(res.data);
-        }).then((err) => {
-            console.log(err);
-        })
+        setQuantityState(quantityState- quantityState);
+        axios.post('http://localhost:5000/api/cart/addItem/Test', {
+            'itemID': id,
+            'amount' : -quantityState
+        }).then((response) => {
+            console.log(response.data);
+        }).catch((error) => {
+            console.log(error.data);
+        });
+        window.location.reload();
     }
+
+    useEffect(() => {
+        setQuantityState(quantity);
+    }, [])
+
 
 
     return (
@@ -42,9 +70,9 @@ export default function CartItem({ title, quantity, imagePath, price, data }) {
 
             <div className={styles.thirdCartItem}>
                 <div className={styles.quantitySection}>
-                    <MinusOutlined onClick={() => minusQuantity(quantity)} className={styles.delBtnCartItem} />
-                    <h1 className={styles.quantityCartItem}>{quantity}</h1>
-                    <PlusOutlined onClick={() => plusQuantity(quantity)} className={styles.addBtnCartItem} />
+                    <MinusOutlined onClick={() => minusQuantity(quantityState)} className={styles.delBtnCartItem} />
+                    <h1 className={styles.quantityCartItem}>{quantityState}</h1>
+                    <PlusOutlined onClick={() => plusQuantity(quantityState)} className={styles.addBtnCartItem} />
                 </div>
 
             </div>

@@ -12,6 +12,7 @@ import Link from 'next/link';
 import Loader from '../components/Loader';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const { Meta } = Card;
 
@@ -23,19 +24,27 @@ export default function Favorite({ value }) {
     // const favItem = [];
     const [loading, setLoading] = useState(true);
 
-    const toastSuccess = () => {
+    const toastSuccess = (props) => {
+        axios.post(`http://localhost:5000/api/cart/addItem/Test`, {
+          itemID: props,
+          amount: 1
+        }).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        })
+    
         toast.success('ADD TO CART SUCCESS ',
-            {
-                // icon: '😝',
-                style: {
-                    borderRadius: '10px',
-                    padding: "1rem",
-                    fontWeight: "bold",
-                    // fontSize: "1.5rem"
-                },
-            });
+          {
+            // icon: '😝',
+            style: {
+              borderRadius: '10px',
+              padding: "1rem",
+              fontWeight: "bold",
+              // fontSize: "1.5rem"
+            },
+          });
         console.log("TOASTTs");
-    }
+      }
 
     const toastFavSuccess = (props) => {
         axios.post(`http://localhost:5000/api/FavoriteItem/Test`, {
@@ -155,7 +164,7 @@ export default function Favorite({ value }) {
                                 marginTop: "1rem"
                             }}
                             cover={
-                                <Link href={`/product/${item._id}`}>
+                                <Link href={`/product/${item.itemID}`}>
                                     <img
                                         alt="item"
                                         src={item.imagePath}
@@ -166,11 +175,11 @@ export default function Favorite({ value }) {
                             }
                             actions={[
                                 <>
-                                    <HeartFilled onClick={() => delFavSuccess(item._id)} style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
+                                    <HeartFilled onClick={() => delFavSuccess(item.itemID)} style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />
                                     
                                 </>,
                                 // <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />,
-                                <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+                                <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={() => toastSuccess(item.itemID)} />,
                                 <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
                             ]}
                         >

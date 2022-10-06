@@ -49,12 +49,12 @@ export default function Navbar() {
                         width: 200,
                     }}
                 />
-                <Link href="/cart" ><ShoppingCartOutlined style={{ color: "black", marginLeft: "2rem", marginRight: "0.5rem" }} /></Link>
-                <h3 className={styles.cartnumber}>0</h3>
+                <Link href="/cart" ><ShoppingCartOutlined style={{ color: "black", marginLeft: "2rem", marginRight: "1rem", fontSize:"1.5rem" }} /></Link>
+                {/* <h3 className={styles.cartnumber}>0</h3> */}
 
                 {user
                     ? <>
-                        <Link href="/profile" ><UserOutlined style={{ color: "black", marginLeft: "0rem", marginRight: "1rem" }} /></Link>
+                        <Link href="/profile" ><UserOutlined style={{ color: "black", marginLeft: "1rem", marginRight: "1rem", fontSize:"1.5rem" }} /></Link>
                         <Button onClick={singout} style={{ marginLeft: "2rem" }}>Logout</Button>
                     </>
                     : <>

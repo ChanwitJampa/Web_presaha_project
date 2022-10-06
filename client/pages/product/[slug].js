@@ -24,19 +24,27 @@ export default function ProductScreen(props) {
 
     console.log(slug);
 
-    const toastCartSuccess = () => {
+    const toastSuccess = (props) => {
+        axios.post(`http://localhost:5000/api/cart/addItem/Test`, {
+          itemID: props,
+          amount: 1
+        }).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        })
+    
         toast.success('ADD TO CART SUCCESS ',
-            {
-                icon: '🛒',
-                style: {
-                    borderRadius: '10px',
-                    padding: "1rem",
-                    fontWeight: "bold",
-                    // fontSize: "1.5rem"
-                },
-            });
+          {
+            // icon: '😝',
+            style: {
+              borderRadius: '10px',
+              padding: "1rem",
+              fontWeight: "bold",
+              // fontSize: "1.5rem"
+            },
+          });
         console.log("TOASTTs");
-    }
+      }
 
     const toastFavSuccess = (props) => {
         axios.post(`http://localhost:5000/api/FavoriteItem/Test`, {
@@ -114,7 +122,7 @@ export default function ProductScreen(props) {
                     />
                 </Tooltip>
 
-                <Button type='primary' onClick={toastCartSuccess} icon={<ShoppingCartOutlined />} size={'large'} style={{ marginLeft: "2rem" }}>
+                <Button type='primary' onClick={() => toastSuccess(data._id)} icon={<ShoppingCartOutlined />} size={'large'} style={{ marginLeft: "2rem" }}>
                     add to cart
                 </Button>
 

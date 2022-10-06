@@ -24,9 +24,15 @@ export default function Home() {
   const [userFav, setUserFav] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  let favArr = [];
+  const toastSuccess = (props) => {
+    axios.post(`http://localhost:5000/api/cart/addItem/Test`, {
+      itemID: props,
+      amount: 1
+    }).then((res) => {
+      console.log(res);
+      console.log(res.data);
+    })
 
-  const toastSuccess = () => {
     toast.success('ADD TO CART SUCCESS ',
       {
         // icon: '😝',
@@ -91,6 +97,7 @@ export default function Home() {
 
   const fetchData = async () => {
     const response1 = await axios.get('http://localhost:5000/api/Items');
+    // const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/justID/Test');
     const response2 = await axios.get('http://localhost:5000/api/FavoriteItem/justID/Test');
 
     setUser(JSON.parse(window.localStorage.getItem("user")));
@@ -107,37 +114,37 @@ export default function Home() {
   }
 
   const checkToken = async () => {
-    const token = user.token;
+    // const token = user.token;
 
-    let config = {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    }
+    // let config = {
+    //   headers: {
+    //     'Authorization': 'Bearer ' + token
+    //   }
+    // }
 
-    console.log('TOKEN = ' + token);
+    // console.log('TOKEN = ' + token);
 
-    axios.post(`http://localhost:5000/api/authen`,
-      {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }
-    ).then((res) => {
-      console.log(res);
-      console.log(res.data);
-    }).catch((err) => {
-      console.log(err.response.data);
-    })
+    // axios.post(`http://localhost:5000/api/authen`,
+    //   {
+    //     headers: { 'Authorization': `Bearer ${token}` }
+    //   }
+    // ).then((res) => {
+    //   console.log(res);
+    //   console.log(res.data);
+    // }).catch((err) => {
+    //   console.log(err.response.data);
+    // })
 
 
-    setLoading(false);
+    // setLoading(false);
   }
 
-  useEffect(() => {
-    if (user != null) {
-      checkToken();
+  // useEffect(() => {
+  //   if (user != null) {
+  //     checkToken();
 
-    }
-  }, [user]);
+  //   }
+  // }, [user]);
 
 
   useEffect(() => {
@@ -263,7 +270,7 @@ export default function Home() {
                     }
                   </>,
                   // <HeartFilled style={{ fontSize: '16px', color: '#E80F88', }} key="edit" />,
-                  <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={toastSuccess} />,
+                  <ShoppingCartOutlined key="setting" style={{ fontSize: '20px' }} onClick={() => toastSuccess(item._id)} />,
                   <EllipsisOutlined key="ellipsis" style={{ fontSize: '20px' }} />,
                 ]}
               >
